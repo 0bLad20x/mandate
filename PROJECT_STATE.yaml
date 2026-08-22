@@ -1,7 +1,7 @@
 project:
   id: mandate
   state_version: "0.1"
-  status: FOUNDATION_PROOF_READY
+  status: FOUNDATION_PROOF_ACTIVE
 
 accepted_foundation:
   protocol: mandate.coordination@0.1
@@ -21,9 +21,13 @@ accepted_foundation:
   execution_boundary:
     semantic_actions:
       - DISPATCH
-      - RUNNING_WAIT
       - PAUSE
       - TERMINATE
+    broker_runtime_phases:
+      - IDLE
+      - RUNNING_WAIT
+      - PAUSED
+      - TERMINAL
     responsibility_conversation_binding: durable
     github_is_canonical_semantic_state: true
     modelrail_is_execution_broker: true
@@ -34,7 +38,7 @@ foundation_proof:
     - issue: 2
       id: P0
       objective: multi-turn happy path with parallel workers and same-conversation follow-up
-      state: READY
+      state: RETRY_AFTER_OBSERVED_RUNTIME_FAILURE
     - issue: 3
       id: P1
       objective: contract-bound rejection and correction
@@ -44,10 +48,65 @@ foundation_proof:
       objective: restart without duplicate dispatch
       state: BLOCKED_BY_P1
 
+observed_failures:
+  - id: P0-F001
+    run_id: P0-LIVE-001
+    classification: BROKER_PROTOCOL_OVERMODELED
+    observation: >-
+      RUNNING_WAIT was exposed as an Assistant-emitted handoff even though waiting is derivable
+      from broker queue/pending state. After the initial worker frontier completed, the Root emitted
+      RUNNING_WAIT with no remaining broker work, producing RUNNING_WAIT_WITHOUT_OTHER_WORK and the
+      same failure on resume.
+    correction_under_test: >-
+      Remove RUNNING_WAIT from Assistant actions. Keep it only as broker-internal runtime state.
+      DISPATCH carries only addressed GitHub attention; semantic meaning remains in GitHub.
+
+open_hypotheses:
+  - id: H_OBLIGATION_NO_IMPLICIT_DISCHARGE
+    status: UNPROVEN_OBSERVE
+    hypothesis: >-
+      A delegated obligation may need an explicit lifecycle invariant preventing it from disappearing
+      after FAILED, INCOMPLETE, replacement work, or organizational change without acceptance,
+      supersession/withdrawal, or run termination.
+    evidence_needed: >-
+      Observe whether an unresolved delegated obligation can actually disappear or become ownerless
+      in live runs under the current eight rules and contracts.
+    enforcement: NONE
+
+  - id: H_DISPATCHED_CONTRACT_IMMUTABILITY
+    status: UNPROVEN_OBSERVE
+    hypothesis: >-
+      A dispatched contract may need an immutable identity or explicit revision lineage so later
+      acceptance can prove which objective and criteria governed execution.
+    evidence_needed: >-
+      Observe whether live coordination produces ambiguous, silently changed, or disputed task
+      contracts and whether existing GitHub history plus R5/R6 is insufficient.
+    enforcement: NONE
+
+  - id: H_ORDINARY_DELEGATOR_EQUALS_PARENT
+    status: UNPROVEN_OBSERVE
+    hypothesis: >-
+      Ordinary downward delegation may need a deterministic invariant that the task delegator equals
+      the assignee's accountable parent, otherwise sideways work assignment could bypass SIGNAL-only
+      semantics.
+    evidence_needed: >-
+      Observe whether current agents ever create a task for a responsibility they do not own and what
+      semantic problem, if any, results.
+    enforcement: NONE
+
+  - id: H_RETIREMENT_REQUIRES_CLEAR_OBLIGATIONS
+    status: DEFERRED_UNPROVEN
+    hypothesis: >-
+      A responsibility may need to remain non-retirable while it owns unresolved obligations or active
+      children so accountability cannot become orphaned.
+    evidence_needed: >-
+      Evaluate only once live runs actually exercise responsibility retirement or reorganization.
+    enforcement: NONE
+
 current_frontier:
   objective: >-
-    Execute P0 end-to-end with GitHub as semantic authority and Modelrail as an external
-    execution broker. Observe actual coordination failures before adding abstractions.
+    Correct only the observed P0 broker failure by simplifying the execution boundary, rerun P0 with
+    a fresh run id, and observe actual coordination behavior before adding governance or abstractions.
   issue: 2
 
 explicitly_open:
@@ -59,6 +118,8 @@ explicitly_open:
   - policy for deliberate independent fresh-perspective conversations
 
 non_goals_now:
+  - promote open hypotheses into rules without live evidence
+  - contract revision/versioning before a concrete ambiguity is observed
   - fixed universal organization chart
   - universal role library
   - research-specific workflow
