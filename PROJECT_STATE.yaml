@@ -62,46 +62,52 @@ observed_failures:
       DISPATCH carries only addressed GitHub attention; semantic meaning remains in GitHub.
 
 open_hypotheses:
-  - id: H_OBLIGATION_NO_IMPLICIT_DISCHARGE
-    status: UNPROVEN_OBSERVE
-    hypothesis: >-
-      A delegated obligation may need an explicit lifecycle invariant preventing it from disappearing
-      after FAILED, INCOMPLETE, replacement work, or organizational change without acceptance,
-      supersession/withdrawal, or run termination.
-    evidence_needed: >-
-      Observe whether an unresolved delegated obligation can actually disappear or become ownerless
-      in live runs under the current eight rules and contracts.
-    enforcement: NONE
+  posture: >-
+    These are observations to falsify or support in live runs. They are not protocol rules,
+    validator requirements, or implementation commitments. Prefer simplifying an existing rule or
+    state transition before promoting a new invariant.
 
-  - id: H_DISPATCHED_CONTRACT_IMMUTABILITY
-    status: UNPROVEN_OBSERVE
-    hypothesis: >-
-      A dispatched contract may need an immutable identity or explicit revision lineage so later
-      acceptance can prove which objective and criteria governed execution.
-    evidence_needed: >-
-      Observe whether live coordination produces ambiguous, silently changed, or disputed task
-      contracts and whether existing GitHub history plus R5/R6 is insufficient.
-    enforcement: NONE
+  candidates:
+    - id: H_OBLIGATION_NO_IMPLICIT_DISCHARGE
+      status: UNPROVEN_OBSERVE
+      hypothesis: >-
+        A delegated obligation may need an explicit lifecycle invariant preventing it from disappearing
+        after FAILED, INCOMPLETE, replacement work, or organizational change without acceptance,
+        supersession/withdrawal, or run termination.
+      evidence_needed: >-
+        Observe whether an unresolved delegated obligation can actually disappear or become ownerless
+        in live runs under the current eight rules and contracts.
+      enforcement: NONE
 
-  - id: H_ORDINARY_DELEGATOR_EQUALS_PARENT
-    status: UNPROVEN_OBSERVE
-    hypothesis: >-
-      Ordinary downward delegation may need a deterministic invariant that the task delegator equals
-      the assignee's accountable parent, otherwise sideways work assignment could bypass SIGNAL-only
-      semantics.
-    evidence_needed: >-
-      Observe whether current agents ever create a task for a responsibility they do not own and what
-      semantic problem, if any, results.
-    enforcement: NONE
+    - id: H_DISPATCHED_CONTRACT_IMMUTABILITY
+      status: UNPROVEN_OBSERVE
+      hypothesis: >-
+        A dispatched contract may need an immutable identity or explicit revision lineage so later
+        acceptance can prove which objective and criteria governed execution.
+      evidence_needed: >-
+        Observe whether live coordination produces ambiguous, silently changed, or disputed task
+        contracts and whether existing GitHub history plus R5/R6 is insufficient.
+      enforcement: NONE
 
-  - id: H_RETIREMENT_REQUIRES_CLEAR_OBLIGATIONS
-    status: DEFERRED_UNPROVEN
-    hypothesis: >-
-      A responsibility may need to remain non-retirable while it owns unresolved obligations or active
-      children so accountability cannot become orphaned.
-    evidence_needed: >-
-      Evaluate only once live runs actually exercise responsibility retirement or reorganization.
-    enforcement: NONE
+    - id: H_ORDINARY_DELEGATOR_EQUALS_PARENT
+      status: UNPROVEN_OBSERVE
+      hypothesis: >-
+        Ordinary downward delegation may need a deterministic invariant that the task delegator equals
+        the assignee's accountable parent, otherwise sideways work assignment could bypass SIGNAL-only
+        semantics.
+      evidence_needed: >-
+        Observe whether current agents ever create a task for a responsibility they do not own and what
+        semantic problem, if any, results.
+      enforcement: NONE
+
+    - id: H_RETIREMENT_REQUIRES_CLEAR_OBLIGATIONS
+      status: DEFERRED_UNPROVEN
+      hypothesis: >-
+        A responsibility may need to remain non-retirable while it owns unresolved obligations or active
+        children so accountability cannot become orphaned.
+      evidence_needed: >-
+        Evaluate only once live runs actually exercise responsibility retirement or reorganization.
+      enforcement: NONE
 
 current_frontier:
   objective: >-
