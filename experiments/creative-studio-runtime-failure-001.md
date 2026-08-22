@@ -28,6 +28,18 @@ After syncing sender binding, the same persisted TurnRef `43b102` was resumed ag
 
 This is materially different from the first two defects. `to_responsibility_id` is semantic routing, not redundant transport identity. The broker must not guess it merely because the current example appears to be a child RESULT returning to ROOT. The repeated sequence therefore falsified the field-by-field repair strategy: a long-running broker cannot rely on every completed Assistant Turn emitting a perfect machine envelope, yet it also cannot safely synthesize missing semantic routing itself.
 
+## Observation 4 — nonterminal quiescence after successful in-band recovery
+
+After syncing the generic in-band protocol-correction loop, the same run resumed successfully. The old `EVIDENCE-SYNTHESIS` response was extracted, a correction Turn was sent in the same durable synthesis conversation, the corrected handoff reached ROOT, and the run then continued through additional downstream responsibilities, RED-TEAM-driven follow-up work, and ROOT acceptance turns for more than twenty minutes.
+
+The process finally exited with:
+
+`applications.mandate_smoke_harness.BrokerError: RUN_NOT_TERMINAL_BUT_NO_EXECUTABLE_HANDOFF`
+
+At that point there was no malformed envelope. The most recent closed Turn had produced an empty handoff list, leaving `pending=[]`, `queue=[]`, and a nonterminal run. Empty handoffs are legal for an individual closed Turn, so this state is not automatically transport corruption. The short smoke broker nevertheless treated global nonterminal quiescence as a fatal invariant violation.
+
+Canonical creative state makes this especially important: RED-TEAM follow-up work had resolved several structural risks, but actual representative viewer laughter/performed timing remained explicitly unknown and greenlight-blocking. A responsibility can therefore honestly finish a Turn without having an immediately obvious next transport action while the parent mission remains unresolved. The broker must not choose the missing semantic work itself, but it also must not terminate the local process merely because the semantic frontier is temporarily empty.
+
 ## Correction on Modelrail experimental branch
 
 Branch: `agent/mandate-creative-studio-4day`
@@ -39,6 +51,8 @@ Commits:
 - `ae836ccf8a1d093f6a31d47fcbdb6d56246aac4b` — regression coverage for wrong-sender recovery plus proof that sender normalization cannot grant run-control authority.
 - `6129e9c999e5cd1e3a273965f83b6f7b404f8577` — replace field-by-field semantic guessing with an in-band protocol-correction loop for malformed terminal envelopes.
 - `6066f095e6cef09a12c310ce86af010c999974a0` — regression coverage for the observed missing-target failure and for authority-violation correction without executing the forbidden control action.
+- `e22fdd3bbf3eedd58088be9ac888c34ef158706f` — replace fatal nonterminal no-work handling with accountable in-band quiescence resolution.
+- `3490cb250536ed666dbbcf07f77c4b2d943c4724` — regression coverage for same-owner quiescence recovery and bounded unresolved-quiescence blocking.
 
 ## Current recovery semantics
 
@@ -47,12 +61,17 @@ Commits:
 3. Handoff sender identity is bound to the responsibility that owns the persisted source TurnRef. Missing or mismatched Assistant-reported `from_responsibility_id` is normalized to that source responsibility and audit-recorded.
 4. Sender normalization cannot expand authority. A non-Run-Authority Turn that claims `from_responsibility_id: RUN-AUTHORITY` is rebound to its actual source responsibility before validation.
 5. Missing semantic fields such as DISPATCH target/issue/action, PAUSE reason, or TERMINATE outcome are never inferred by the broker.
-6. If parsing or strict validation still fails, the broker opens a correction Turn in the same durable responsibility conversation. The correction Turn is explicitly transport-only: it must not repeat already completed research/creative/acceptance work and may read the already-persisted canonical issue state only as needed to emit a valid next handoff.
+6. If parsing or strict validation fails, the broker opens a correction Turn in the same durable responsibility conversation. The correction Turn is explicitly transport-only: it must not repeat already completed research/creative/acceptance work and may read the already-persisted canonical issue state only as needed to emit a valid next handoff.
 7. The rejected TurnRef remains the semantic receipt. The correction TurnRef is recorded separately as transport recovery evidence.
 8. Protocol recovery attempts and identity normalizations are persisted in local audit state. A bounded number of failed correction attempts leads to a durable `RECOVERY_BLOCKED` checkpoint rather than an unrecorded traceback loop; explicit later `resume` retries that checkpoint after code/config correction.
 9. Completed pending Turns are checkpointed one-by-one so one malformed result cannot erase already collected peers.
-10. Because all three observed failures occurred before the old collector removed pending TurnRef `43b102`, the same completed semantic Turn should remain recoverable; the research must not be restarted.
+10. When the whole run becomes nonterminally quiescent (`pending=[]`, `queue=[]`), the broker does not guess the next responsibility or task. It reactivates the responsibility that produced the most recent completed receipt in that responsibility's existing durable conversation with a quiescence-resolution Turn.
+11. The quiescence-resolution Turn must inspect canonical state and make an explicit accountable disposition: return completed work upward, create/continue justified work within authority, persist and escalate a genuine blocker/checkpoint, or—only for RUN-AUTHORITY—use PAUSE/TERMINATE when justified. It is explicitly forbidden from manufacturing work merely to keep the process busy.
+12. Repeated empty quiescence resolutions are bounded. Exhaustion produces a durable `RECOVERY_BLOCKED` checkpoint with kind `QUIESCENCE_UNRESOLVED`, not a traceback or infinite loop. Quiescence recoveries are audit-recorded.
+13. Existing semantic work is never restarted merely because transport/supervisor recovery is required.
 
 ## Scope
 
-This correction addresses the observed class of malformed Assistant terminal envelopes without modifying Modelrail Core and without allowing the broker to invent semantic routing or authority. It changes the long-running studio posture from “perfect envelope or process exit” to “normalize redundant transport identity, then request an in-band correction from the accountable responsibility for semantic/protocol defects.” It still does not claim that every browser, network, OS-process, or Turn-submission crash is automatically recoverable; those are separate supervisor concerns.
+These corrections address the observed malformed-envelope and nonterminal-quiescence failure classes without modifying Modelrail Core and without allowing the broker to invent semantic routing, authority, or creative work. The long-running studio posture is now: normalize redundant transport identity; request in-band correction for malformed semantic/protocol envelopes; return an empty global frontier to the last accountable owner for explicit semantic disposition; checkpoint bounded unresolved recovery instead of crashing.
+
+This still does not claim that every browser, network, OS-process, or Turn-submission crash is automatically recoverable. Those remain separate supervisor concerns.
