@@ -1,0 +1,51 @@
+project:
+  id: mandate
+  state_version: "0.1"
+  status: FOUNDATION_DEFINED
+
+accepted_foundation:
+  protocol: mandate.coordination@0.1
+  rules:
+    - R1_NO_SELF_ACCEPTANCE
+    - R2_SINGLE_ACCOUNTABILITY
+    - R3_ACCOUNTABILITY_SURVIVES_DELEGATION
+    - R4_AUTHORITY_CANNOT_EXPAND_DOWNWARD
+    - R5_ACCEPTANCE_IS_CONTRACT_BOUND
+    - R6_CONTRACT_OWNERSHIP_REMAINS_UPWARD
+    - R7_SIGNALS_TRANSFER_INFORMATION_ONLY
+    - R8_RUN_CONTROL_IS_EXPLICIT_AUTHORITY
+  movements:
+    - DELEGATION
+    - RESULT
+    - SIGNAL
+  execution_boundary:
+    semantic_actions:
+      - DISPATCH
+      - PAUSE
+      - TERMINATE
+    broker_runtime_phase:
+      - RUNNING_WAIT
+    responsibility_conversation_binding: durable
+    github_is_canonical_semantic_state: true
+    modelrail_is_execution_broker: true
+
+current_frontier:
+  objective: >-
+    Prove one minimal closed delegation loop end-to-end using GitHub as semantic authority
+    and Modelrail as execution broker, without adding domain-specific workflow logic.
+  issue: null
+
+explicitly_open:
+  - exact persisted run/organization artifact layout
+  - validator implementation for deterministic protocol invariants
+  - bootstrap/grill-me intake protocol before runtime organization creation
+  - role profiles beyond explicit responsibility and authority
+  - conduct rules earned from observed coordination failures
+  - policy for deliberate independent fresh-perspective conversations
+
+non_goals_now:
+  - fixed universal organization chart
+  - universal role library
+  - research-specific workflow
+  - automatic task-count quotas
+  - broad supervisor hierarchy before a concrete failure requires it
