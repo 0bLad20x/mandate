@@ -1,0 +1,73 @@
+contract:
+  id: mandate.execution_handoff
+  version: "0.1"
+  purpose: >-
+    Define the complete machine boundary between GitHub semantic state and the execution broker.
+    The broker transports work; it does not interpret domain semantics.
+
+semantic_actions:
+  DISPATCH:
+    required_fields:
+      - message_id
+      - run_id
+      - from_responsibility_id
+      - to_responsibility_id
+      - issue_number
+    behavior: >-
+      Resolve the target responsibility to its durable conversation. Continue the existing
+      conversation when bound; otherwise create a fresh conversation, persist the binding,
+      send the fixed task-attention prompt, wait for one completed TurnResult, and persist
+      the transport receipt.
+
+  PAUSE:
+    required_fields:
+      - message_id
+      - run_id
+      - from_responsibility_id
+      - reason
+    authority_required: run_control
+    behavior: stop autonomous dispatch without terminating the run
+
+  TERMINATE:
+    required_fields:
+      - message_id
+      - run_id
+      - from_responsibility_id
+      - outcome
+    authority_required: run_control
+    outcome_enum:
+      - SUCCESS
+      - FAILURE
+    behavior: terminate the run
+
+broker_phases:
+  - IDLE
+  - RUNNING_WAIT
+  - PAUSED
+  - TERMINAL
+
+routing:
+  key: to_responsibility_id
+  lookup: run organization responsibility -> conversation_id
+  default:
+    existing_binding: CONTINUE
+    missing_binding: FRESH_AND_PERSIST
+  provider_url: modelrail_owned_detail
+
+fixed_dispatch_prompt:
+  template: |-
+    Repository: {repository}
+    Assigned responsibility: {responsibility_id}
+    Assigned task issue: #{issue_number}
+
+    Read the exact canonical resources authorized by the task and responsibility routing.
+    Execute only the assigned contract. Persist the required result in GitHub and stop
+    after this closed execution transaction.
+
+invariants:
+  - one handoff addresses one responsibility
+  - multiple independent DISPATCH handoffs may execute concurrently
+  - a responsibility conversation processes its own Turns sequentially
+  - the broker never decides semantic acceptance
+  - the broker never invents tasks, responsibilities, signals, pause, or termination
+  - PAUSE and TERMINATE are rejected unless sender has run_control authority
