@@ -1,0 +1,113 @@
+protocol:
+  id: mandate.coordination
+  version: "0.1"
+  status: provisional_foundation
+
+purpose: >-
+  Define the smallest stable semantic rules for recursively delegated LLM work.
+  Domain-specific workflows remain outside this protocol.
+
+rules:
+  R1_NO_SELF_ACCEPTANCE:
+    statement: >-
+      No responsibility may authoritatively accept fulfillment of its own delegated work.
+      It may only return a result upward.
+
+  R2_SINGLE_ACCOUNTABILITY:
+    statement: >-
+      Every delegated responsibility has exactly one accountable parent responsibility.
+      The run authority is the sole top-level control authority and is not self-accepted.
+
+  R3_ACCOUNTABILITY_SURVIVES_DELEGATION:
+    statement: >-
+      Delegating work does not remove the delegator's accountability to its own parent.
+      Child results must be integrated into the delegator's own returned result.
+
+  R4_AUTHORITY_CANNOT_EXPAND_DOWNWARD:
+    statement: >-
+      Delegation may preserve or narrow granted scope and authority; it may never create
+      authority that the delegator does not possess.
+
+  R5_ACCEPTANCE_IS_CONTRACT_BOUND:
+    statement: >-
+      A returned result may be accepted or rejected only against the objective and
+      acceptance criteria that governed the delegated task. New requirements are new
+      or explicitly amended work, not retroactive rejection grounds.
+
+  R6_CONTRACT_OWNERSHIP_REMAINS_UPWARD:
+    statement: >-
+      A delegatee may not silently rewrite its own objective, acceptance criteria, or
+      authority. Ambiguity, infeasibility, or a proposed contract change must be returned
+      upward for disposition by the delegating authority.
+
+  R7_SIGNALS_TRANSFER_INFORMATION_ONLY:
+    statement: >-
+      A sideways signal transfers information to another responsibility. It does not
+      create work, obligation, authority, acceptance, or a contract change. Only an
+      authorized delegation can create workload.
+
+  R8_RUN_CONTROL_IS_EXPLICIT_AUTHORITY:
+    statement: >-
+      Only the responsibility explicitly holding run_control authority may PAUSE or
+      TERMINATE the run. All other responsibilities may only return results or signals
+      through permitted channels; they may not declare human intervention necessary or
+      stop the run.
+
+movements:
+  DELEGATION:
+    direction: down
+    changes_responsibility: true
+    changes_authority: may_narrow_only
+    creates_obligation: true
+
+  RESULT:
+    direction: up
+    destination: accountable_parent
+    changes_responsibility: false
+    implies_acceptance: false
+
+  SIGNAL:
+    direction: sideways
+    destination: responsibility_not_executor
+    changes_responsibility: false
+    changes_authority: false
+    creates_obligation: false
+
+execution_semantics:
+  transaction: >-
+    Every execution is closed: one addressed contract is executed as one Modelrail Turn,
+    a completed TurnResult is returned and persisted, and only then may a new contract
+    or message be issued.
+  conversation_binding: >-
+    A durable Modelrail conversation belongs to a concrete responsibility instance, not
+    to an individual task. Existing responsibilities continue their conversation by
+    default; newly created responsibilities receive a fresh conversation binding.
+  modelrail_boundary: >-
+    Modelrail owns execution mechanics only. It does not own task acceptance, semantic
+    workflow state, organization, authority, or run termination decisions.
+
+run_control:
+  authority_flag: run_control
+  allowed_actions:
+    - PAUSE
+    - TERMINATE_SUCCESS
+    - TERMINATE_FAILURE
+  non_authority_behavior: >-
+    Return the blocking fact or unresolved condition upward as part of the current result.
+    Do not emit run-control actions.
+
+validation_boundary:
+  deterministic:
+    - responsibility_identity_exists
+    - single_parent_accountability
+    - delegation_sender_has_authority
+    - delegated_authority_does_not_expand
+    - no_self_acceptance
+    - result_targets_accountable_parent
+    - signal_does_not_create_work
+    - pause_or_terminate_requires_run_control
+    - handoff_references_existing_task_and_responsibility
+  semantic:
+    - whether_result_satisfies_objective
+    - whether_acceptance_criteria_are_materially_met
+    - whether_new_work_is_worth_delegating
