@@ -1,0 +1,59 @@
+contract:
+  id: mandate.task
+  version: "0.1"
+  purpose: define one delegated unit of semantic work
+
+required_fields:
+  - task_id
+  - run_id
+  - delegator_responsibility_id
+  - assignee_responsibility_id
+  - objective
+  - acceptance
+
+fields:
+  task_id:
+    type: string
+
+  run_id:
+    type: string
+
+  delegator_responsibility_id:
+    type: string
+
+  assignee_responsibility_id:
+    type: string
+
+  objective:
+    type: string
+    rule: state what must be achieved without silently changing parent authority
+
+  acceptance:
+    type: list
+    item:
+      required_fields:
+        - criterion_id
+        - statement
+      fields:
+        criterion_id:
+          type: string
+        statement:
+          type: string
+
+  authorized_resources:
+    type: list
+    description: stable repository resource IDs, exact issue numbers, or exact paths permitted by the task
+
+  conduct_refs:
+    type: list
+    description: additional conduct modules beyond the assignee responsibility defaults
+
+  context:
+    type: object
+    description: task-specific context only; do not duplicate canonical governance or organization state
+
+invariants:
+  - the assignee may return a result but may not accept this task
+  - acceptance criteria belong to the delegating authority
+  - task-specific instructions cannot expand assignee authority
+  - GitHub issue open or closed state may represent task openness or accepted closure; execution completion alone must not close the issue
