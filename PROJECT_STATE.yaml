@@ -38,11 +38,17 @@ foundation_proof:
     - issue: 2
       id: P0
       objective: multi-turn happy path with parallel workers and same-conversation follow-up
-      state: COMPLETE
+      state: TERMINAL_PATH_PROVEN_ACCEPTANCE_PENDING
+      acceptance_open:
+        - criterion_id: P0-A10
+          observation: >-
+            P0-LIVE-003 reached TERMINATE SUCCESS only on the dependent experimental Modelrail
+            branch that contains the separately justified post-submit visibility fix under
+            src/modelrail/conversation/state.py. Do not silently reinterpret or rewrite P0-A10.
     - issue: 3
       id: P1
       objective: contract-bound rejection and correction
-      state: READY
+      state: READY_EXPERIMENTAL
     - issue: 4
       id: P2
       objective: restart without duplicate dispatch
@@ -80,8 +86,8 @@ observed_failures:
       NOT_MATERIALIZED waits for visibility instead of replaying the logical SEND, while
       SUBMIT_AMBIGUOUS plus positively proven absence remains replay-safe. The deterministic
       visibility-lag regression and broker boundary both passed, and P0-LIVE-003 then completed
-      the full multi-turn proof through same-conversation verification, Root acceptance, and
-      Run Authority TERMINATE SUCCESS without duplicate materialization.
+      the full multi-turn execution path through same-conversation verification, Root acceptance,
+      and Run Authority TERMINATE SUCCESS without duplicate materialization.
 
 open_hypotheses:
   posture: >-
@@ -133,13 +139,15 @@ open_hypotheses:
 
 current_frontier:
   objective: >-
-    Execute P1 only: prove contract-bound rejection and correction in the same responsibility
-    conversation while preserving the original task and first result as auditable evidence.
-    Do not add governance, reviewer roles, retry policy, or new Modelrail Core behavior unless
-    a new observed runtime failure requires it.
+    P0 has mechanically proven the intended terminal execution path, but strict P0 acceptance remains
+    open on the literal scope of P0-A10 because the successful run used the dependent runtime-fix branch.
+    Do not rewrite that criterion retroactively. P1 may proceed experimentally on the same validated
+    branch to gather rejection/correction evidence, while the P0-A10 disposition remains an explicit
+    architectural decision rather than a hidden acceptance assumption.
   issue: 3
 
 explicitly_open:
+  - disposition of P0-A10 after a justified runtime bug fix was required by live evidence
   - exact long-term persisted run/organization artifact layout after P0 evidence
   - validator implementation beyond the narrow broker boundary checks exercised by P0
   - bootstrap/grill-me intake protocol before runtime organization creation
@@ -148,6 +156,7 @@ explicitly_open:
   - policy for deliberate independent fresh-perspective conversations
 
 non_goals_now:
+  - silently reinterpret or rewrite P0-A10 after observing the successful run
   - promote open hypotheses into rules without live evidence
   - contract revision/versioning before a concrete ambiguity is observed
   - fixed universal organization chart
