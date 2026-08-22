@@ -38,11 +38,11 @@ foundation_proof:
     - issue: 2
       id: P0
       objective: multi-turn happy path with parallel workers and same-conversation follow-up
-      state: RETRY_AFTER_OBSERVED_RUNTIME_FAILURE
+      state: COMPLETE
     - issue: 3
       id: P1
       objective: contract-bound rejection and correction
-      state: BLOCKED_BY_P0
+      state: READY
     - issue: 4
       id: P2
       objective: restart without duplicate dispatch
@@ -75,12 +75,13 @@ observed_failures:
       The trace shows the same logical ROOT turn id sent twice. The external broker had submitted
       one pending TurnRef; the duplicate arose inside Conversation progression while recovering a
       SUBMIT_RETURNED turn from an immediate NOT_MATERIALIZED read.
-    correction_under_test: >-
-      Validate the already-isolated minimal Modelrail behavior: when delivery_state is
-      SUBMIT_RETURNED, immediate NOT_MATERIALIZED is not replay authority; preserve the durable
-      turn and wait for materialization. Keep replay after positively proven absence for genuinely
-      ambiguous/crash-recovery states. Test this on a dependent experimental branch without
-      changing Modelrail main or adding Mandate governance.
+    correction_result: >-
+      The dependent experimental branch changed only SUBMIT_RETURNED recovery so immediate
+      NOT_MATERIALIZED waits for visibility instead of replaying the logical SEND, while
+      SUBMIT_AMBIGUOUS plus positively proven absence remains replay-safe. The deterministic
+      visibility-lag regression and broker boundary both passed, and P0-LIVE-003 then completed
+      the full multi-turn proof through same-conversation verification, Root acceptance, and
+      Run Authority TERMINATE SUCCESS without duplicate materialization.
 
 open_hypotheses:
   posture: >-
@@ -132,10 +133,11 @@ open_hypotheses:
 
 current_frontier:
   objective: >-
-    Validate only the observed post-submit visibility replay correction on the dependent Modelrail
-    experimental branch, rerun P0 with a fresh run id if deterministic checks pass, and continue
-    observing coordination behavior without adding governance or abstractions.
-  issue: 2
+    Execute P1 only: prove contract-bound rejection and correction in the same responsibility
+    conversation while preserving the original task and first result as auditable evidence.
+    Do not add governance, reviewer roles, retry policy, or new Modelrail Core behavior unless
+    a new observed runtime failure requires it.
+  issue: 3
 
 explicitly_open:
   - exact long-term persisted run/organization artifact layout after P0 evidence
