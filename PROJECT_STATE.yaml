@@ -33,7 +33,7 @@ current_frontier:
   objective: >-
     Prove one minimal closed delegation loop end-to-end using GitHub as semantic authority
     and Modelrail as execution broker, without adding domain-specific workflow logic.
-  issue: null
+  issue: 1
 
 explicitly_open:
   - exact persisted run/organization artifact layout
