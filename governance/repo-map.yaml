@@ -1,0 +1,58 @@
+repo_map:
+  version: "0.1"
+  purpose: >-
+    Stable catalog for exact GitHub retrieval. Known resources should be fetched directly;
+    repository search is reserved for genuine discovery.
+
+resources:
+  state.project:
+    path: PROJECT_STATE.yaml
+    kind: current_state
+
+  protocol.core:
+    path: governance/protocol.yaml
+    kind: normative
+
+  conduct.index:
+    path: governance/conduct/index.yaml
+    kind: router
+
+  conduct.core:
+    path: governance/conduct/core.yaml
+    kind: operating_guidance
+
+  conduct.acceptance:
+    path: governance/conduct/acceptance.yaml
+    kind: operating_guidance
+
+  contract.responsibility:
+    path: contracts/responsibility.yaml
+    kind: contract
+
+  contract.task:
+    path: contracts/task.yaml
+    kind: contract
+
+  contract.result:
+    path: contracts/result.yaml
+    kind: contract
+
+  contract.handoff:
+    path: contracts/handoff.yaml
+    kind: contract
+
+retrieval_policy:
+  known_file: fetch_file
+  known_issue: fetch_issue
+  known_issue_comments: fetch_issue_comments
+  known_directory: exact_directory_fetch
+  unknown_resource: constrained_search_then_exact_fetch
+  search_result_is_authority: false
+  prefer_exact_reader: true
+  pinned_ref_when_reproducibility_matters: true
+
+identity_policy:
+  logical_identity: repository_path_or_issue_number
+  repository_state_identity: commit_sha
+  exact_file_content_identity: blob_sha
+  selected_slice_identity: line_range
