@@ -19,7 +19,7 @@ accepted_foundation:
     - RESULT
     - SIGNAL
   execution_boundary:
-    semantic_actions:
+    machine_actions:
       - DISPATCH
       - PAUSE
       - TERMINATE
