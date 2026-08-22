@@ -1,7 +1,7 @@
 project:
   id: mandate
   state_version: "0.1"
-  status: FOUNDATION_DEFINED
+  status: FOUNDATION_PROOF_READY
 
 accepted_foundation:
   protocol: mandate.coordination@0.1
@@ -21,23 +21,38 @@ accepted_foundation:
   execution_boundary:
     semantic_actions:
       - DISPATCH
+      - RUNNING_WAIT
       - PAUSE
       - TERMINATE
-    broker_runtime_phase:
-      - RUNNING_WAIT
     responsibility_conversation_binding: durable
     github_is_canonical_semantic_state: true
     modelrail_is_execution_broker: true
 
+foundation_proof:
+  parent_issue: 1
+  sequence:
+    - issue: 2
+      id: P0
+      objective: multi-turn happy path with parallel workers and same-conversation follow-up
+      state: READY
+    - issue: 3
+      id: P1
+      objective: contract-bound rejection and correction
+      state: BLOCKED_BY_P0
+    - issue: 4
+      id: P2
+      objective: restart without duplicate dispatch
+      state: BLOCKED_BY_P1
+
 current_frontier:
   objective: >-
-    Prove one minimal closed delegation loop end-to-end using GitHub as semantic authority
-    and Modelrail as execution broker, without adding domain-specific workflow logic.
-  issue: 1
+    Execute P0 end-to-end with GitHub as semantic authority and Modelrail as an external
+    execution broker. Observe actual coordination failures before adding abstractions.
+  issue: 2
 
 explicitly_open:
-  - exact persisted run/organization artifact layout
-  - validator implementation for deterministic protocol invariants
+  - exact long-term persisted run/organization artifact layout after P0 evidence
+  - validator implementation beyond the narrow broker boundary checks exercised by P0
   - bootstrap/grill-me intake protocol before runtime organization creation
   - role profiles beyond explicit responsibility and authority
   - conduct rules earned from observed coordination failures
