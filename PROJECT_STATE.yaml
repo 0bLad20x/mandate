@@ -57,9 +57,30 @@ observed_failures:
       from broker queue/pending state. After the initial worker frontier completed, the Root emitted
       RUNNING_WAIT with no remaining broker work, producing RUNNING_WAIT_WITHOUT_OTHER_WORK and the
       same failure on resume.
+    correction_result: >-
+      RUNNING_WAIT was removed from Assistant actions and retained only as broker-internal runtime
+      state. P0-LIVE-002 passed this former failure point, so the simplification is supported by the
+      next live run.
+
+  - id: P0-F002
+    run_id: P0-LIVE-002
+    classification: MODELRAIL_POST_SUBMIT_VISIBILITY_REPLAY
+    observation: >-
+      The corrected broker reached Run Authority -> Root -> parallel FEASIBILITY and OPTIMALITY
+      worker execution. Both workers persisted canonical RESULT records in GitHub. On the first
+      addressed return to the existing ROOT conversation, one Modelrail SEND returned success and
+      was then issued again with the same internal turn id before materialization became visible,
+      producing DUPLICATE_BLOCKED / DUPLICATE_MATERIALIZATION.
+    evidence: >-
+      The trace shows the same logical ROOT turn id sent twice. The external broker had submitted
+      one pending TurnRef; the duplicate arose inside Conversation progression while recovering a
+      SUBMIT_RETURNED turn from an immediate NOT_MATERIALIZED read.
     correction_under_test: >-
-      Remove RUNNING_WAIT from Assistant actions. Keep it only as broker-internal runtime state.
-      DISPATCH carries only addressed GitHub attention; semantic meaning remains in GitHub.
+      Validate the already-isolated minimal Modelrail behavior: when delivery_state is
+      SUBMIT_RETURNED, immediate NOT_MATERIALIZED is not replay authority; preserve the durable
+      turn and wait for materialization. Keep replay after positively proven absence for genuinely
+      ambiguous/crash-recovery states. Test this on a dependent experimental branch without
+      changing Modelrail main or adding Mandate governance.
 
 open_hypotheses:
   posture: >-
@@ -111,8 +132,9 @@ open_hypotheses:
 
 current_frontier:
   objective: >-
-    Correct only the observed P0 broker failure by simplifying the execution boundary, rerun P0 with
-    a fresh run id, and observe actual coordination behavior before adding governance or abstractions.
+    Validate only the observed post-submit visibility replay correction on the dependent Modelrail
+    experimental branch, rerun P0 with a fresh run id if deterministic checks pass, and continue
+    observing coordination behavior without adding governance or abstractions.
   issue: 2
 
 explicitly_open:
