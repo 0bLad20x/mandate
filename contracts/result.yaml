@@ -1,0 +1,61 @@
+contract:
+  id: mandate.result
+  version: "0.1"
+  purpose: >-
+    Define what a responsibility may return after executing delegated work. A result is
+    never self-acceptance and never run control unless emitted by the explicit run authority.
+
+required_fields:
+  - result_id
+  - run_id
+  - task_id
+  - from_responsibility_id
+  - to_responsibility_id
+  - execution_outcome
+  - summary
+
+fields:
+  result_id:
+    type: string
+
+  run_id:
+    type: string
+
+  task_id:
+    type: string
+
+  from_responsibility_id:
+    type: string
+
+  to_responsibility_id:
+    type: string
+    constraint: must equal the accountable parent/delegator for this task
+
+  execution_outcome:
+    enum:
+      - PRODUCED
+      - INCOMPLETE
+      - FAILED
+    description: status of this execution attempt, not acceptance of the task
+
+  summary:
+    type: string
+
+  artifacts:
+    type: list
+    default: []
+
+  unresolved:
+    type: list
+    default: []
+    description: missing facts, ambiguities, infeasibility, or proposed changes to propagate upward
+
+  evidence_refs:
+    type: list
+    default: []
+
+invariants:
+  - result does not imply acceptance
+  - result does not close the task
+  - non-run-authority results may not contain PAUSE or TERMINATE actions
+  - human intervention may not be declared necessary by a non-run-authority result
