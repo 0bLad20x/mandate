@@ -1,6 +1,6 @@
 project:
   id: mandate
-  state_version: "0.7"
+  state_version: "0.8"
   status: ARCHITECTURE_RESEARCH_ACTIVE
 
 accepted_foundation:
@@ -125,13 +125,59 @@ historical_evidence:
       Broker routing already uses responsibility_id as target identity and creates/binds the
       durable conversation on first actual DISPATCH. Therefore pre-binding a deterministic future
       conversation id is unnecessary and contradicts the responsibility contract semantics.
+  wp1_org_proof_004:
+    seed_issue: 67
+    run_id: WP1-ORG-PROOF-004
+    terminal: SUCCESS
+    run_authority_acceptance: ACCEPTED_T1_T15
+    evidence_issues: [68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86]
+    full_pre_execution_package: WP1-ORG-PROOF-004-FULL-PREEXEC-ORG-1
+    disposition: COHERENT
+    post_run_assessment_comment: 5385962085
+    mission_manifest: WP1-ORG-PROOF-004-MISSION-MANIFEST-1
+    observation: >-
+      Cross-domain replication completed the full pre-execution organization pipeline in a materially
+      different trading domain without exposing concrete Keto topology during generation. Decision-delta
+      clarification used two real PAUSE/reactivation cycles and then produced a Mission Manifest that
+      incorporated the canonical human correction excluding crypto from the original seed. A fresh Architect
+      proposed four broad authorities, fresh independent Review returned ACCEPTABLE, every broad authority
+      recursively produced its own child execution organization, ROOT integrated the whole topology, and no
+      substantive trading/domain execution was released.
+    trading_topology:
+      top_level_authorities:
+        - STRATEGY-EVIDENCE-AUTHORITY
+        - RISK-CAPITAL-AUTHORITY
+        - MARKET-EXECUTION-AUTHORITY
+        - SYSTEM-ASSURANCE-AUTHORITY
+      subtree_leaf_counts:
+        STRATEGY-EVIDENCE-AUTHORITY: 2
+        RISK-CAPITAL-AUTHORITY: 4
+        MARKET-EXECUTION-AUTHORITY: 2
+        SYSTEM-ASSURANCE-AUTHORITY: 3
+      total_execution_leaves: 11
+    cross_domain_comparison: >-
+      Keto full recursive topology was 3 broad authorities with 3/3/3 children. Trading independently
+      produced 4 broad authorities with 2/4/2/3 children. This materially weakens the earlier symmetry/
+      anchoring concern and supports mission-derived decomposition, while two domains are not universal proof.
+    activation_regression: >-
+      All eleven defined-but-never-dispatched execution leaves retained conversation_id null and ACTIVE was
+      treated as organization membership only, providing live corrective evidence for the Proof-003 anomaly.
+    runtime_observation: >-
+      Terminal broker state recorded exactly one successful quiescence recovery after the final broad-authority
+      return, resolved on attempt 1. There were no protocol recoveries, transport repairs, recovery block,
+      pending work, or semantic proof failure. Exact cause is not established; keep as non-blocking observation.
+    epistemic_limits:
+      - reviewer REVISION_REQUIRED behavior remains unproven because the fresh review again returned ACCEPTABLE
+      - two domains support cross-domain generalization but do not prove universal topology behavior
+      - no substantive execution occurred, so runtime SIGNAL use and dynamic organization mutation were not exercised
+      - no later proposal attempted to revise an already accepted human commitment, so the human re-approval branch remains unproven
 
 architecture_work_packages:
   sequence:
     - issue: 35
       id: WP1
       title: Mandatory organization design before execution
-      state: ACTIVE_FRONTIER_CROSS_DOMAIN_REPLICATION
+      state: CLOSURE_CANDIDATE_TWO_BOUNDED_OPEN_ITEMS
     - issue: 36
       id: WP2
       title: Reporting and project artifact architecture
@@ -151,69 +197,78 @@ architecture_work_packages:
 
 wp1_hypotheses_under_test:
   - id: O1_ORGANIZATION_BEFORE_EXECUTION
-    status: STRONG_POSITIVE_EVIDENCE_THREE_LIVE_PROOFS_SAME_DOMAIN
+    status: STRONG_POSITIVE_EVIDENCE_FOUR_LIVE_PROOFS_TWO_DOMAINS
     hypothesis: >-
       Ordinary domain execution should not begin until an explicit initial organization
       design is persisted and independently challenged.
   - id: O2_AUTHORITY_EXECUTION_SEPARATION
-    status: STRONG_POSITIVE_EVIDENCE_FULL_KETO_TOPOLOGY
+    status: STRONG_POSITIVE_EVIDENCE_FULL_TOPOLOGIES_TWO_DOMAINS
     hypothesis: >-
       A non-leaf authority should organize, delegate, integrate, judge, and accept its
       domain rather than substituting for the substantive execution organization beneath it.
+    schema_implication: >-
+      Current evidence does not justify a new AUTHORITY/EXECUTION kind in the core responsibility enum.
+      Existing parent identity, authority booleans, delegated tasks/results, and bounded responsibility
+      contracts expressed the separation in Proof 004.
   - id: O3_MISSION_RELEVANCE
-    status: STRONG_POSITIVE_EVIDENCE_FULL_KETO_TOPOLOGY
+    status: STRONG_POSITIVE_EVIDENCE_FULL_TOPOLOGIES_TWO_DOMAINS
     hypothesis: >-
       Every responsibility/task should identify which inherited obligation, judgment,
       uncertainty, risk, or deliverable it can materially change.
+    representation_implication: >-
+      Mission relevance is clearly useful, but current evidence does not yet establish whether it requires
+      a new formal responsibility field or is sufficiently carried by responsibility boundary text plus
+      task objective/acceptance/context.
   - id: H_RECURSIVE_ORGANIZATION_DESIGN
-    status: STRONG_POSITIVE_EVIDENCE_FULL_KETO_TOPOLOGY
+    status: STRONG_POSITIVE_EVIDENCE_FULL_TOPOLOGIES_TWO_DOMAINS
     hypothesis: >-
       Initial organization should establish justified authority/domain topology rather than
       predict the complete leaf graph; broad authorities should recursively design their own
       child execution structure before doing substantive work.
-    next_evidence: cross-domain replication without prior Keto topology exposure
   - id: H_MISSION_CLARIFICATION_BY_DECISION_DELTA
-    status: STRONG_POSITIVE_EVIDENCE_ONE_LIVE_HUMAN_PROOF
+    status: STRONG_POSITIVE_EVIDENCE_TWO_LIVE_HUMAN_PROOFS_CROSS_DOMAIN
     hypothesis: >-
       Before organization design, unresolved mission dimensions should be clarified only when
       materially different plausible answers could change mission scope, product direction,
       organization/domain weighting, authority boundaries, or acceptance criteria.
     observed_mechanism: >-
       Existing PAUSE plus explicit operator reactivation was sufficient; no terminal UI or new
-      Modelrail Core action was required. The same responsibility/conversation continued across
-      multiple human rounds and stopped when only lower-impact unknowns remained.
+      Modelrail Core action was required. Proof 004 additionally showed that canonical human input
+      can materially correct the seed before Manifest acceptance and organization design.
     enforcement: EXPERIMENTAL_WORKING_BASIS
 
 wp1_observations_not_yet_rules:
   - id: H_HUMAN_APPROVAL_AT_MATERIAL_COMMITMENT_BOUNDARIES
-    status: POSITIVE_NON_ESCALATION_OBSERVATION
+    status: PRECOMMITMENT_HITL_POSITIVE_REAPPROVAL_BRANCH_UNPROVEN
     hypothesis: >-
       Human involvement should follow ownership of material commitments rather than fixed workflow
       step numbers. A lower responsibility may refine work inside accepted delegated authority, but
       should not silently rewrite a commitment established by canonical human input. A material
       proposed change to such a commitment must travel upward and may require human acceptance.
     evidence: >-
-      Proof 003 found no genuine commitment conflict and correctly proceeded without PAUSE.
-      The actual escalation-to-human branch remains unproven and should be observed naturally.
+      Proof 004 used two real human clarification boundaries and canonical human input corrected the seed
+      before Manifest acceptance. No later responsibility proposed changing an already accepted human commitment,
+      so no re-approval PAUSE was naturally required. Current evidence does not justify a fixed extra post-Manifest
+      or post-organization human gate; existing R6 plus R8 already express the needed ownership/run-control path.
     enforcement: NONE
   - id: H_TASK_RELEVANT_CONTEXT_PROJECTION
-    status: POSITIVE_OBSERVATION_NOT_ISOLATED
+    status: POSITIVE_CROSS_DOMAIN_OBSERVATION_NOT_FULLY_ISOLATED
     hypothesis: >-
       A responsibility should receive the smallest faithful mission/domain/interface context needed
       to integrate its work rather than the complete durable archive by default.
     evidence: >-
-      Proof 003 broad authorities organized successfully from bounded mission/boundary/interface context,
-      but prior accepted structure was still visible enough that anchoring cannot be excluded.
+      Proof 004 excluded concrete Keto organization artifacts from the generation path and still produced
+      a coherent, materially different organization. Exact minimal/bias-optimal context remains unisolated.
     enforcement: EXPERIMENT_ONLY
   - id: H_TOPOLOGY_ANCHORING_OR_SYMMETRY_BIAS
-    status: UNPROVEN_OBSERVE
+    status: WEAKENED_BY_CROSS_DOMAIN_REPLICATION_KEEP_OBSERVE
     hypothesis: >-
       Prior visible organization examples may anchor later authorities toward similar branch counts,
       checker patterns, or decomposition shape even when each local rationale is plausible.
     evidence: >-
-      Proof 003 ended with three broad authorities each containing three execution children and an
-      independent-check surface; this may be mission-justified or may reflect structural anchoring.
-    next_evidence: Proof 004 cross-domain generation with concrete Keto topology excluded
+      Proof 003 Keto ended 3/3/3. Proof 004, generated without concrete Keto topology exposure, ended
+      with four broad authorities and 2/4/2/3 leaves. Independent checks did not appear mechanically in
+      every subtree. Two domains are not universal proof, but no further work is currently triggered.
     enforcement: NONE
   - id: H_ORGANIZATION_CHANGE_REQUIRES_IMPACT_DISPOSITION
     status: UNPROVEN_OBSERVE
@@ -224,12 +279,86 @@ wp1_observations_not_yet_rules:
     intended_wp: WP5
     enforcement: NONE
   - id: H_REVIEW_CAPABILITY_PATTERN
-    status: UNPROVEN_OBSERVE
+    status: POSITIVE_REVIEW_STRUCTURE_NEGATIVE_PATH_UNPROVEN
     hypothesis: >-
-      Repeated evidence may eventually justify a reusable review/audit capability contract, but
-      first-pass ACCEPTABLE organization reviews are insufficient to create a permanent reviewer class.
-    next_evidence: separate reviewer-negative/revision proof after organization replication
+      Independent organization challenge is repeatedly useful, but first-pass ACCEPTABLE reviews do not
+      establish reliable rejection/revision behavior or justify a permanent Reviewer/Auditor class.
+    next_evidence: narrow reviewer-negative/revision capability test if WP1-A7 is to be literally satisfied
     enforcement: NONE
+
+wp1_foundation_rule_audit_proof_004:
+  R1_NO_SELF_ACCEPTANCE:
+    disposition: MATERIALLY_ACTIVE_KEEP
+    effect: >-
+      Clarifier, Architect, Reviewer, broad authorities, and execution leaves returned results upward;
+      no responsibility authoritatively accepted its own delegated work.
+  R2_SINGLE_ACCOUNTABILITY:
+    disposition: MATERIALLY_ACTIVE_KEEP
+    effect: >-
+      Every broad authority and all eleven leaves had exactly one accountable parent, enabling adjacent
+      ownership boundaries to remain explicit.
+  R3_ACCOUNTABILITY_SURVIVES_DELEGATION:
+    disposition: MATERIALLY_ACTIVE_KEEP
+    effect: >-
+      Broad authorities integrated their child organization and ROOT integrated all broad results into the
+      complete package; child completion did not discharge parent accountability.
+  R4_AUTHORITY_CANNOT_EXPAND_DOWNWARD:
+    disposition: STRONGLY_ACTIVE_KEEP
+    effect: >-
+      The canonical trading-only/no-withdrawal/no-transfer/no-custody boundary constrained Risk, Market
+      Execution, and System Assurance child design and did not expand downward.
+  R5_ACCEPTANCE_IS_CONTRACT_BOUND:
+    disposition: MATERIALLY_ACTIVE_KEEP
+    effect: >-
+      Review, ROOT acceptance, child integration, and RUN-AUTHORITY final acceptance remained tied to the
+      accepted Mission Manifest and explicit delegated/seed criteria rather than newly invented requirements.
+  R6_CONTRACT_OWNERSHIP_REMAINS_UPWARD:
+    disposition: STRONGLY_ACTIVE_KEEP
+    effect: >-
+      Human answers were not inferred; the human corrected the seed before Manifest acceptance; later
+      responsibilities were prohibited from silently changing canonical human mission/capital authority.
+  R7_SIGNALS_TRANSFER_INFORMATION_ONLY:
+    disposition: NOT_RUNTIME_EXERCISED_NO_DELETION_SIGNAL
+    effect: >-
+      Interfaces were modeled, but organization-only execution required no SIDEWAYS SIGNAL action. This is
+      not anomalous and supplies no evidence to remove or modify R7.
+  R8_RUN_CONTROL_IS_EXPLICIT_AUTHORITY:
+    disposition: STRONGLY_ACTIVE_KEEP
+    effect: >-
+      RUN-AUTHORITY alone executed two PAUSE actions and final TERMINATE SUCCESS; lower responsibilities
+      only returned results upward.
+
+wp1_simplification_findings:
+  no_new_core_role_classes:
+    status: SUPPORTED
+    note: >-
+      MISSION-CLARIFICATION, ORGANIZATION-ARCHITECT, ORGANIZATION-REVIEW, Reviewer/Auditor/Tester,
+      Consultant, and Interface Manager names are not justified as permanent Core role classes. The useful
+      behavior was expressed by ordinary responsibility/task contracts and existing governance.
+  no_new_human_input_primitive:
+    status: SUPPORTED
+    note: Existing PAUSE/reactivation is sufficient for observed human-input behavior.
+  no_new_authority_execution_kind:
+    status: SUPPORTED_FOR_NOW
+    note: >-
+      Descriptive BROAD_NON_LEAF_AUTHORITY/EXECUTION_LEAF classifications were useful evidence labels, but
+      Proof 004 did not demonstrate a need to expand the current kind enum. Keep deterministic authority via
+      parent/authority/task constraints unless a later failure shows a missing enforcement primitive.
+  no_new_whole_topology_protocol_gate:
+    status: SUPPORTED_FOR_NOW
+    note: >-
+      Whole-topology integration was valuable, but ROOT's obligation follows from R3 accountability survival
+      plus R5 contract-bound acceptance. The artifact is useful; a new machine action/state is not justified.
+  mission_manifest_is_artifact_pattern_not_core_type:
+    status: SUPPORTED_FOR_NOW
+    note: >-
+      The durable semantic requirement is resolution or explicit deferral of material decision deltas before
+      organization. The current evidence does not require a permanent Core artifact type named Mission Manifest.
+  avoid_new_responsibility_lifecycle_states:
+    status: SUPPORTED_FOR_NOW
+    note: >-
+      ACTIVE as organization membership plus nullable conversation_id was sufficient in Proof 004. Post-run
+      retirement/persistence remains WP5 evidence and does not justify extra execution-like status values here.
 
 responsibility_representation:
   contract_version: "0.2"
@@ -243,10 +372,40 @@ responsibility_representation:
     active_status: >-
       Organizational membership/not-retired only. ACTIVE does not mean conversation-created,
       task-released, queued, pending, or currently executing.
-  rationale: >-
-    Proof 003 produced conflicting representations for equivalent unstarted leaves. Broker code
-    confirms that responsibility_id is sufficient to route future work and conversation identity is
-    deterministically created and stored on first dispatch, so no new status or routing primitive is needed.
+  proof_004_regression: PASS_ALL_ELEVEN_UNSTARTED_LEAVES_NULL
+  remaining_representation_question: >-
+    Decide the smallest canonical place for persistent responsibility-domain ownership/material contribution,
+    result boundary, and prohibited scope. Do not create a separate rich organization ontology unless the
+    existing Responsibility graph plus Task objective/acceptance/context cannot carry these semantics cleanly.
+
+wp1_closure_assessment:
+  status: CLOSURE_CANDIDATE_WITH_TWO_BOUNDED_OPEN_ITEMS
+  core_mechanism_disposition: >-
+    Organization-before-execution, mission relevance, authority/execution separation, recursive organization,
+    decision-delta clarification, full-topology integration, and corrected activation semantics now have strong
+    live evidence including one full cross-domain replication.
+  literal_open_items:
+    - id: WP1_A7_REVIEW_REVISION_CAPABILITY
+      blocker_type: BEHAVIORAL_ACCEPTANCE_BRANCH_UNPROVEN
+      reason: >-
+        Issue #35 explicitly requires that independent organization review can reject or require revision.
+        Every live organization review so far returned ACCEPTABLE. Positive reviews cannot establish the
+        negative/revision path. Keep this as a narrow separate capability question rather than another domain proof.
+    - id: MINIMUM_CANONICAL_ORGANIZATION_REPRESENTATION
+      blocker_type: DELIVERABLE_DESIGN_DECISION
+      reason: >-
+        The evidence argues against a separate rich organization schema, but #35 still requires a minimal canonical
+        representation and ownership/parent-contribution map. Decide whether existing Responsibility + Task contracts
+        are sufficient or whether one minimal responsibility-level boundary field is necessary.
+  nonblocking_later_work:
+    - runtime organization mutation and impact disposition -> WP5
+    - responsibility retirement/lifecycle and issue-state projection -> WP5
+    - runtime SIGNAL behavior under substantive cross-domain execution -> later evidence/WP5
+    - reporting/artifact hierarchy -> WP2
+    - transparent decision learning -> WP3
+    - divergence/convergence mechanisms -> WP4
+    - topology symmetry/anchoring -> background observation only
+    - single quiescence recovery -> runtime observation only unless repeated
 
 wp1_manual_scratch:
   issue: 40
@@ -272,47 +431,27 @@ open_hypotheses:
 current_frontier:
   issue: 35
   objective: >-
-    Replicate the complete pre-execution organization pipeline in a materially different domain
-    without exposing concrete Keto topology, then compare the independently generated organization
-    against the Keto evidence for generalization, topology anchoring/symmetry, context projection,
-    and any missing organization semantics before deciding WP1 promotion/closure.
+    Finish WP1 closure work without another broad domain proof: resolve the minimum canonical organization
+    representation and either behaviorally exercise the narrow WP1-A7 reviewer revision branch or explicitly
+    decide that the existing acceptance boundary must remain open. Do not let later-WP lifecycle/SIGNAL/reporting
+    questions expand WP1.
 
 next_experiment:
-  id: WP1-ORG-PROOF-004
-  seed_issue: 67
-  mode: MODELRAIL_LIVE_CROSS_DOMAIN_END_TO_END_ORGANIZATION
-  seed_mission: Develop an excellent automated crypto trading system.
-  changed_variable: DOMAIN_SWITCH_WITH_KETO_TOPOLOGY_EXCLUDED_FROM_GENERATION
-  intent: >-
-    Repeat decision-delta human clarification, Mission Manifest creation, fresh initial organization
-    proposal/review, recursive organization of every broad authority, and whole-topology integration
-    in a new trading domain. No substantive trading, execution, deployment, financial recommendation,
-    or implementation is authorized.
-  isolation_rule: >-
-    Concrete Keto organization artifacts, branch counts, subtree shapes, and role examples are excluded
-    from the generation path. Cross-run comparison happens only after terminal.
-  activation_semantics_under_test: >-
-    Defined-but-unstarted responsibilities keep conversation_id null; responsibility_id is sufficient
-    for future routing and the broker binds conversation_id on first actual dispatch. ACTIVE means
-    organization membership, not executing state.
-  human_escalation_rule: >-
-    Do not add a fixed extra human gate. A genuine proposal to revise canonical human intent must travel
-    upward and may justify PAUSE; do not manufacture such a conflict.
-  reviewer_scope: >-
-    Normal independent organization review remains in the pipeline; deliberate negative/revision testing
-    is not part of this cross-domain replication.
+  id: null
+  reason: >-
+    No Proof 005 is justified by topology symmetry or cross-domain generalization alone. If a live experiment
+    is run before WP1 closure, it should be narrowly scoped to the still-unproven WP1-A7 reviewer revision capability,
+    not a third domain organization run.
 
 explicitly_open:
-  - whether the organization/clarification principles generalize beyond the Keto domain
-  - whether the Keto 3x3 topology reflects mission structure or anchoring/symmetry bias
-  - whether decision-delta mission clarification should eventually become reusable pre-organization behavior rather than an experimental responsibility name
-  - exact minimal canonical representation of organization design versus run-specific organization state beyond the clarified responsibility identity/activation distinction
-  - whether authority/execution distinction needs new schema semantics or is sufficiently expressible through existing authority/task contracts
-  - whether responsibility lifecycle needs semantics beyond ACTIVE/RETIRED for post-run persistence; defer unless new evidence requires it
-  - whether organization review requires any reusable capability contract after negative-test evidence
-  - context projection rules that minimize bias while remaining sufficient
+  - WP1-A7 reviewer REVISION_REQUIRED behavior
+  - minimum canonical organization representation versus run-specific descriptive fields
+  - exact universal generality beyond two domains; observation only, no work triggered
+  - whether decision-delta clarification should eventually become reusable pre-organization behavior rather than an experimental responsibility name
+  - exact minimal/bias-optimal context projection rule
   - how later organization changes disposition already existing work; defer to WP5
-  - interface ownership; observe but do not introduce an Interface Manager
+  - responsibility retirement and issue lifecycle projection; defer to WP5
+  - runtime SIGNAL behavior and interface ownership under substantive execution; defer to WP5 and do not introduce an Interface Manager
   - long-term reporting/artifact design in WP2
   - quality/decision learning protocol in WP3
   - divergence/convergence implementation mechanisms in WP4
@@ -322,14 +461,15 @@ known_nonblocking_anomalies:
   - Modelrail terminal state and GitHub issue lifecycle/status can diverge; treat as later lifecycle evidence
   - PROJECT_STATE requires explicit projection refresh after live runs
   - Proof 003 contains historical leaf issues whose conversation_id was pre-bound inconsistently; preserve as evidence rather than rewriting history
+  - Proof 004 terminal broker state recorded one successful quiescence recovery resolved on attempt 1; exact cause is unknown and no Core change is justified from one event
 
 non_goals_now:
   - add permanent Organization Architect, Mission Clarifier, Reviewer, Auditor, Tester, Consultant, or Interface Manager roles to Core
-  - add a fixed generic or trading intake questionnaire
+  - add a fixed generic, Keto, or trading intake questionnaire
   - add a terminal UI or new Modelrail Core human-input action
+  - add a new authority/execution kind without a demonstrated enforcement gap
+  - add a permanent whole-topology machine gate/action
+  - add extra responsibility lifecycle states before WP5 evidence
   - change Modelrail main
-  - perform substantive trading, code deployment, market execution, financial recommendation, or implementation in Proof 004
-  - implement runtime organization mutation/impact handling in Proof 004
-  - mix reviewer-negative testing into Proof 004
-  - expose Keto concrete topology to Proof 004 organization generation
+  - run another broad domain proof solely to accumulate examples
   - use topology similarity, wall-clock duration, token quotas, arbitrary hierarchy depth, or arbitrary worker counts as quality criteria
