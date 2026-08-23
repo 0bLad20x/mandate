@@ -1,6 +1,6 @@
 project:
   id: mandate
-  state_version: "0.5"
+  state_version: "0.6"
   status: ARCHITECTURE_RESEARCH_ACTIVE
 
 accepted_foundation:
@@ -64,35 +64,45 @@ historical_evidence:
     run_id: WP1-ORG-PROOF-001
     terminal: SUCCESS
     run_authority_acceptance: ACCEPTED_P1_P13
-    evidence_issues:
-      - 42
-      - 43
-      - 44
-      - 45
-      - 46
-      - 47
+    evidence_issues: [42, 43, 44, 45, 46, 47]
     observation: >-
-      Live Modelrail evidence supports organization-before-execution, authority/execution
-      separation, mission relevance, and recursive organization. A fresh Organization Architect
-      proposed three broad authority boundaries, an independent Organization Review returned
-      ACCEPTABLE, and accepted RECIPE-SYSTEM-AUTHORITY recursively defined separate development
-      and validation execution children without performing substantive cookbook work.
+      Live evidence supports organization-before-execution, authority/execution separation,
+      mission relevance, and recursive organization. One accepted broad recipe authority
+      recursively defined separate development and validation execution children without
+      substantive cookbook work.
     epistemic_limits:
-      - one positive organization case does not promote WP1 hypotheses into foundation rules
       - reviewer rejection/revision behavior was not exercised
       - only one accepted broad authority was recursively decomposed
       - the intentionally underspecified mission left many product-defining dimensions unresolved
-    anomalies:
-      - seed issue 41 remained open after TERMINATE SUCCESS
-      - defined-but-blocked child issues 46 and 47 remained open after the proof
-      - project-state projection required explicit refresh after the run
+  wp1_org_proof_002:
+    seed_issue: 48
+    run_id: WP1-ORG-PROOF-002
+    terminal: SUCCESS
+    run_authority_acceptance: ACCEPTED_Q1_Q14
+    evidence_issues: [49, 50, 51, 52, 53, 54, 55, 56]
+    observation: >-
+      Decision-delta mission clarification worked live through two real PAUSE/operator-
+      reactivation cycles in one durable MISSION-CLARIFICATION conversation. Canonical human
+      responses reduced material mission ambiguity and produced an accepted Mission Manifest
+      before organization design. The clarified mission produced sharper authority boundaries
+      and a RECIPE-PORTFOLIO-AUTHORITY subtree with separate discovery/provenance,
+      development/adaptation, and independent practicality/portfolio checking responsibilities.
+    comparison_to_proof_001: >-
+      Clarification improved contract specificity and recursive decomposition rationale without
+      requiring a larger top-level headcount. Lower-impact details remained explicitly deferred.
+    epistemic_limits:
+      - the concrete experimental role names are not foundation doctrine
+      - no fixed clarification-round count is justified
+      - organization review again returned ACCEPTABLE on the first proposal; REVISION_REQUIRED remains unproven
+      - only the recipe broad authority was recursively decomposed; the other two broad domains remain unresolved below their authority boundaries
+      - no substantive cookbook execution was authorized
 
 architecture_work_packages:
   sequence:
     - issue: 35
       id: WP1
       title: Mandatory organization design before execution
-      state: ACTIVE_FRONTIER
+      state: ACTIVE_FRONTIER_HARDENING
     - issue: 36
       id: WP2
       title: Reporting and project artifact architecture
@@ -112,38 +122,53 @@ architecture_work_packages:
 
 wp1_hypotheses_under_test:
   - id: O1_ORGANIZATION_BEFORE_EXECUTION
-    status: POSITIVE_EVIDENCE_ONE_LIVE_PROOF
+    status: STRONG_POSITIVE_EVIDENCE_TWO_LIVE_PROOFS
     hypothesis: >-
       Ordinary domain execution should not begin until an explicit initial organization
       design is persisted and independently challenged.
   - id: O2_AUTHORITY_EXECUTION_SEPARATION
-    status: POSITIVE_EVIDENCE_ONE_LIVE_PROOF
+    status: STRONG_POSITIVE_EVIDENCE_TWO_LIVE_PROOFS
     hypothesis: >-
       A non-leaf authority should organize, delegate, integrate, judge, and accept its
       domain rather than substituting for the substantive execution organization beneath it.
   - id: O3_MISSION_RELEVANCE
-    status: POSITIVE_EVIDENCE_ONE_LIVE_PROOF
+    status: STRONG_POSITIVE_EVIDENCE_TWO_LIVE_PROOFS
     hypothesis: >-
       Every responsibility/task should identify which inherited obligation, judgment,
       uncertainty, risk, or deliverable it can materially change.
   - id: H_RECURSIVE_ORGANIZATION_DESIGN
-    status: POSITIVE_EVIDENCE_ONE_LIVE_PROOF
+    status: POSITIVE_EVIDENCE_PARTIAL_TOPOLOGY
     hypothesis: >-
       Initial organization should establish justified authority/domain topology rather than
       predict the complete leaf graph; broad authorities should recursively design their own
       child execution structure before doing substantive work.
+    next_evidence: >-
+      Complete the still-unresolved Keto-integrity and Product-experience subtrees and then
+      assess the whole topology from ROOT's cross-domain perspective.
   - id: H_MISSION_CLARIFICATION_BY_DECISION_DELTA
-    status: NEXT_LIVE_TEST
+    status: STRONG_POSITIVE_EVIDENCE_ONE_LIVE_HUMAN_PROOF
     hypothesis: >-
       Before organization design, unresolved mission dimensions should be clarified only when
       materially different plausible answers could change mission scope, product direction,
       organization/domain weighting, authority boundaries, or acceptance criteria.
-    intended_mechanism: >-
-      Use a dedicated experimental MISSION-CLARIFICATION responsibility plus existing PAUSE and
-      explicit operator reactivation. Do not add a terminal UI or a new Modelrail Core action.
-    enforcement: EXPERIMENT_ONLY
+    observed_mechanism: >-
+      Existing PAUSE plus explicit operator reactivation was sufficient; no terminal UI or new
+      Modelrail Core action was required. The same responsibility/conversation continued across
+      multiple human rounds and stopped when only lower-impact unknowns remained.
+    enforcement: EXPERIMENTAL_WORKING_BASIS
 
 wp1_observations_not_yet_rules:
+  - id: H_HUMAN_APPROVAL_AT_MATERIAL_COMMITMENT_BOUNDARIES
+    status: UNPROVEN_OBSERVE
+    hypothesis: >-
+      Human involvement should follow ownership of material commitments rather than fixed workflow
+      step numbers. A lower responsibility may refine work inside accepted delegated authority, but
+      should not silently rewrite a commitment established by canonical human input. A material
+      proposed change to such a commitment must travel upward and may require human acceptance.
+    next_evidence: >-
+      Observe naturally during recursive organization and later runs; do not manufacture a human
+      pause merely to exercise the path.
+    enforcement: NONE
   - id: H_ORGANIZATION_CHANGE_REQUIRES_IMPACT_DISPOSITION
     status: UNPROVEN_OBSERVE
     hypothesis: >-
@@ -155,18 +180,23 @@ wp1_observations_not_yet_rules:
   - id: H_REVIEW_CAPABILITY_PATTERN
     status: UNPROVEN_OBSERVE
     hypothesis: >-
-      Repeated evidence may eventually justify a reusable review/audit capability contract, but one
-      successful fresh reviewer conversation is insufficient to create a permanent reviewer class.
-    next_evidence: reviewer negative/revision proof after mission-clarification comparison
+      Repeated evidence may eventually justify a reusable review/audit capability contract, but two
+      first-pass ACCEPTABLE organization reviews are insufficient to create a permanent reviewer class.
+    next_evidence: reviewer negative/revision proof after current organization hardening
     enforcement: NONE
+  - id: H_TASK_RELEVANT_CONTEXT_PROJECTION
+    status: PROVISIONAL_OBSERVE
+    hypothesis: >-
+      A responsibility should receive the smallest faithful mission/domain/interface context needed
+      to integrate its work rather than the complete durable archive by default.
+    enforcement: EXPERIMENT_ONLY
 
 wp1_manual_scratch:
   issue: 40
   status: NON_CANONICAL_FOR_ACCEPTANCE
   note: >-
-    Issue #40 contains an assistant-authored same-context dry-run used only to sharpen the
-    experimental questions. It did not execute through Modelrail, had no independent review,
-    produced no durable responsibility trace, and must not be used as proof.
+    Issue #40 is assistant-authored same-context scratch evidence only. It did not execute through
+    Modelrail and must not be used as proof.
 
 open_hypotheses:
   - id: H_OBLIGATION_NO_IMPLICIT_DISCHARGE
@@ -185,31 +215,31 @@ open_hypotheses:
 current_frontier:
   issue: 35
   objective: >-
-    Hold the domain constant and test whether decision-delta-driven human mission clarification
-    before organization design materially improves the Keto responsibility topology and contracts
-    without introducing a fixed questionnaire, UI protocol, domain taxonomy, or unnecessary governance.
+    Finish the same-mission WP1 organization proof by recursively decomposing the two broad accepted
+    authorities that remain unresolved below the top-level topology, then integrate all three domain
+    subtrees from a bird's-eye perspective before deciding WP1 closure/promotion.
 
 next_experiment:
-  id: WP1-ORG-PROOF-002
-  seed_issue: 48
-  mode: MODELRAIL_LIVE_HUMAN_IN_LOOP
-  changed_variable: MISSION_CLARIFICATION_BEFORE_ORGANIZATION
-  baseline_run: WP1-ORG-PROOF-001
+  id: WP1-ORG-PROOF-003
+  seed_issue: 57
+  mode: MODELRAIL_LIVE_FULL_RECURSIVE_ORGANIZATION
+  inherited_run: WP1-ORG-PROOF-002
+  changed_variable: COMPLETE_REMAINING_BROAD_AUTHORITY_DECOMPOSITION_AND_WHOLE_TOPOLOGY_ASSESSMENT
   intent: >-
-    Start from the same broad Keto seed. A fresh MISSION-CLARIFICATION responsibility derives a
-    minimal human question batch from material decision deltas. RUN-AUTHORITY pauses using the
-    existing PAUSE control after the clarification request is canonical. The operator persists the
-    human response in GitHub and explicitly reactivates the same run. Clarification continues in the
-    same responsibility conversation until a compact Mission Manifest is sufficient, after which the
-    normal Organization Architect -> independent Review -> recursive broad-authority proof proceeds.
-  comparison_rule: >-
-    Do not reward topology similarity. Compare whether clarified mission intent reduces material
-    uncertainty and produces more justified domain existence, weighting, authority boundaries, and
-    recursive decomposition while preserving flexibility.
+    Inherit the accepted Proof 002 Mission Manifest, accepted top-level topology, and accepted recipe
+    subtree. Fresh KETO-INTEGRITY-AUTHORITY and PRODUCT-EXPERIENCE-AUTHORITY responsibilities each
+    derive their own sufficient child execution organization from task-relevant mission/interface
+    context. ROOT then integrates all three subtrees and persists a FULL_PRE_EXECUTION_ORGANIZATION_PACKAGE.
+  human_escalation_rule: >-
+    Do not add a fixed human gate. If live organization work discovers a genuine need to revise a
+    commitment established by canonical human input, return it upward; only RUN-AUTHORITY may PAUSE.
+    Do not manufacture such a conflict.
+  reviewer_scope: >-
+    Reviewer-negative/revision testing is explicitly not part of this proof.
 
 explicitly_open:
-  - whether decision-delta mission clarification is necessary enough to become a reusable pre-organization behavior
-  - exact minimal canonical representation of organization design
+  - whether decision-delta mission clarification should eventually become reusable pre-organization behavior rather than an experimental responsibility name
+  - exact minimal canonical representation of organization design versus run-specific organization state
   - whether authority/execution distinction needs new schema semantics or is sufficiently expressible through existing authority/task contracts
   - whether responsibility lifecycle needs semantics beyond current identity/task/status behavior for persistent staff versus temporary consultants
   - whether organization review requires any reusable capability contract after negative-test evidence
@@ -221,12 +251,17 @@ explicitly_open:
   - divergence/convergence implementation mechanisms in WP4
   - dynamic organization and closure mechanics in WP5
 
+known_nonblocking_anomalies:
+  - Modelrail terminal state and GitHub issue lifecycle/status can diverge; treat as later lifecycle evidence
+  - PROJECT_STATE requires explicit projection refresh after live runs
+
 non_goals_now:
-  - promote WP1 hypotheses into accepted foundation rules from one positive proof
-  - add permanent Organization Architect, Mission Clarifier, Reviewer, Auditor, Tester, or Interface Manager roles to Core
-  - add a fixed Keto or generic intake questionnaire
+  - add permanent Organization Architect, Mission Clarifier, Reviewer, Auditor, Tester, Consultant, or Interface Manager roles to Core
+  - add a fixed generic intake questionnaire
   - add a terminal UI or new Modelrail Core human-input action
   - change Modelrail main
-  - implement dynamic organization mutation/impact handling in Proof 002
-  - switch domains before the same-seed clarification comparison is complete
-  - use topology similarity, wall-clock duration, token quotas, or arbitrary iteration counts as quality criteria
+  - perform substantive Keto/cookbook execution in Proof 003
+  - implement runtime organization mutation/impact handling in Proof 003
+  - mix reviewer-negative testing into Proof 003
+  - switch domains before the current same-mission organization hardening is complete
+  - use topology similarity, wall-clock duration, token quotas, arbitrary hierarchy depth, or arbitrary worker counts as quality criteria
