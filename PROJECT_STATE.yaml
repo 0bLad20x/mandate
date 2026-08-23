@@ -1,6 +1,6 @@
 project:
   id: mandate
-  state_version: "0.6"
+  state_version: "0.7"
   status: ARCHITECTURE_RESEARCH_ACTIVE
 
 accepted_foundation:
@@ -94,15 +94,44 @@ historical_evidence:
       - the concrete experimental role names are not foundation doctrine
       - no fixed clarification-round count is justified
       - organization review again returned ACCEPTABLE on the first proposal; REVISION_REQUIRED remains unproven
-      - only the recipe broad authority was recursively decomposed; the other two broad domains remain unresolved below their authority boundaries
+      - only the recipe broad authority was recursively decomposed in this proof
       - no substantive cookbook execution was authorized
+  wp1_org_proof_003:
+    seed_issue: 57
+    run_id: WP1-ORG-PROOF-003
+    terminal: SUCCESS
+    run_authority_acceptance: ACCEPTED_F1_F12
+    evidence_issues: [58, 59, 60, 61, 62, 63, 64, 65, 66]
+    full_pre_execution_package: WP1-ORG-PROOF-003-FULL-PRE-EXECUTION-ORGANIZATION-PACKAGE-001
+    disposition: COHERENT
+    observation: >-
+      The two remaining broad authorities independently derived bounded child execution
+      organization while remaining non-leaf. ROOT integrated the inherited recipe subtree plus
+      the new Keto-integrity and Product-experience subtrees and found no current material
+      coverage gap, conflicting ownership, sibling-scope leakage, authority/execution collapse,
+      unjustified over-organization, interface-induced omission, contradiction, or improper
+      promotion of deferred unknowns. The accepted three-domain top-level partition survived
+      full recursive decomposition. All substantive execution remained blocked.
+    positive_human_boundary_observation: >-
+      Neither broad authority discovered a genuine conflict with canonical human commitments or
+      accepted top-level authority, so no artificial PAUSE was created. This supports autonomous
+      resolution inside delegated authority but does not exercise the escalation branch.
+    anomalies:
+      - some defined-but-never-dispatched Keto execution leaves were persisted with deterministic non-null conversation_id values, while equivalent Product leaves correctly used null
+      - all organization-only/future execution responsibilities use ACTIVE although execution is blocked; current interpretation is organizational membership, not running state
+      - the completed topology is notably symmetric with three execution children beneath each broad authority; each rationale is plausible, but anchoring/symmetry bias remains untested
+      - Modelrail terminal state and GitHub issue lifecycle/status can still diverge
+    corrective_evidence: >-
+      Broker routing already uses responsibility_id as target identity and creates/binds the
+      durable conversation on first actual DISPATCH. Therefore pre-binding a deterministic future
+      conversation id is unnecessary and contradicts the responsibility contract semantics.
 
 architecture_work_packages:
   sequence:
     - issue: 35
       id: WP1
       title: Mandatory organization design before execution
-      state: ACTIVE_FRONTIER_HARDENING
+      state: ACTIVE_FRONTIER_CROSS_DOMAIN_REPLICATION
     - issue: 36
       id: WP2
       title: Reporting and project artifact architecture
@@ -122,29 +151,27 @@ architecture_work_packages:
 
 wp1_hypotheses_under_test:
   - id: O1_ORGANIZATION_BEFORE_EXECUTION
-    status: STRONG_POSITIVE_EVIDENCE_TWO_LIVE_PROOFS
+    status: STRONG_POSITIVE_EVIDENCE_THREE_LIVE_PROOFS_SAME_DOMAIN
     hypothesis: >-
       Ordinary domain execution should not begin until an explicit initial organization
       design is persisted and independently challenged.
   - id: O2_AUTHORITY_EXECUTION_SEPARATION
-    status: STRONG_POSITIVE_EVIDENCE_TWO_LIVE_PROOFS
+    status: STRONG_POSITIVE_EVIDENCE_FULL_KETO_TOPOLOGY
     hypothesis: >-
       A non-leaf authority should organize, delegate, integrate, judge, and accept its
       domain rather than substituting for the substantive execution organization beneath it.
   - id: O3_MISSION_RELEVANCE
-    status: STRONG_POSITIVE_EVIDENCE_TWO_LIVE_PROOFS
+    status: STRONG_POSITIVE_EVIDENCE_FULL_KETO_TOPOLOGY
     hypothesis: >-
       Every responsibility/task should identify which inherited obligation, judgment,
       uncertainty, risk, or deliverable it can materially change.
   - id: H_RECURSIVE_ORGANIZATION_DESIGN
-    status: POSITIVE_EVIDENCE_PARTIAL_TOPOLOGY
+    status: STRONG_POSITIVE_EVIDENCE_FULL_KETO_TOPOLOGY
     hypothesis: >-
       Initial organization should establish justified authority/domain topology rather than
       predict the complete leaf graph; broad authorities should recursively design their own
       child execution structure before doing substantive work.
-    next_evidence: >-
-      Complete the still-unresolved Keto-integrity and Product-experience subtrees and then
-      assess the whole topology from ROOT's cross-domain perspective.
+    next_evidence: cross-domain replication without prior Keto topology exposure
   - id: H_MISSION_CLARIFICATION_BY_DECISION_DELTA
     status: STRONG_POSITIVE_EVIDENCE_ONE_LIVE_HUMAN_PROOF
     hypothesis: >-
@@ -159,15 +186,34 @@ wp1_hypotheses_under_test:
 
 wp1_observations_not_yet_rules:
   - id: H_HUMAN_APPROVAL_AT_MATERIAL_COMMITMENT_BOUNDARIES
-    status: UNPROVEN_OBSERVE
+    status: POSITIVE_NON_ESCALATION_OBSERVATION
     hypothesis: >-
       Human involvement should follow ownership of material commitments rather than fixed workflow
       step numbers. A lower responsibility may refine work inside accepted delegated authority, but
       should not silently rewrite a commitment established by canonical human input. A material
       proposed change to such a commitment must travel upward and may require human acceptance.
-    next_evidence: >-
-      Observe naturally during recursive organization and later runs; do not manufacture a human
-      pause merely to exercise the path.
+    evidence: >-
+      Proof 003 found no genuine commitment conflict and correctly proceeded without PAUSE.
+      The actual escalation-to-human branch remains unproven and should be observed naturally.
+    enforcement: NONE
+  - id: H_TASK_RELEVANT_CONTEXT_PROJECTION
+    status: POSITIVE_OBSERVATION_NOT_ISOLATED
+    hypothesis: >-
+      A responsibility should receive the smallest faithful mission/domain/interface context needed
+      to integrate its work rather than the complete durable archive by default.
+    evidence: >-
+      Proof 003 broad authorities organized successfully from bounded mission/boundary/interface context,
+      but prior accepted structure was still visible enough that anchoring cannot be excluded.
+    enforcement: EXPERIMENT_ONLY
+  - id: H_TOPOLOGY_ANCHORING_OR_SYMMETRY_BIAS
+    status: UNPROVEN_OBSERVE
+    hypothesis: >-
+      Prior visible organization examples may anchor later authorities toward similar branch counts,
+      checker patterns, or decomposition shape even when each local rationale is plausible.
+    evidence: >-
+      Proof 003 ended with three broad authorities each containing three execution children and an
+      independent-check surface; this may be mission-justified or may reflect structural anchoring.
+    next_evidence: Proof 004 cross-domain generation with concrete Keto topology excluded
     enforcement: NONE
   - id: H_ORGANIZATION_CHANGE_REQUIRES_IMPACT_DISPOSITION
     status: UNPROVEN_OBSERVE
@@ -180,16 +226,27 @@ wp1_observations_not_yet_rules:
   - id: H_REVIEW_CAPABILITY_PATTERN
     status: UNPROVEN_OBSERVE
     hypothesis: >-
-      Repeated evidence may eventually justify a reusable review/audit capability contract, but two
+      Repeated evidence may eventually justify a reusable review/audit capability contract, but
       first-pass ACCEPTABLE organization reviews are insufficient to create a permanent reviewer class.
-    next_evidence: reviewer negative/revision proof after current organization hardening
+    next_evidence: separate reviewer-negative/revision proof after organization replication
     enforcement: NONE
-  - id: H_TASK_RELEVANT_CONTEXT_PROJECTION
-    status: PROVISIONAL_OBSERVE
-    hypothesis: >-
-      A responsibility should receive the smallest faithful mission/domain/interface context needed
-      to integrate its work rather than the complete durable archive by default.
-    enforcement: EXPERIMENT_ONLY
+
+responsibility_representation:
+  contract_version: "0.2"
+  clarified_semantics:
+    responsibility_id: >-
+      Stable canonical accountability/routing identity. It exists independently of whether an
+      execution conversation has been started.
+    conversation_id: >-
+      Durable Modelrail execution-context binding. It remains null for a canonically defined but
+      never-dispatched responsibility and is bound by the broker on first actual dispatch.
+    active_status: >-
+      Organizational membership/not-retired only. ACTIVE does not mean conversation-created,
+      task-released, queued, pending, or currently executing.
+  rationale: >-
+    Proof 003 produced conflicting representations for equivalent unstarted leaves. Broker code
+    confirms that responsibility_id is sufficient to route future work and conversation identity is
+    deterministically created and stored on first dispatch, so no new status or routing primitive is needed.
 
 wp1_manual_scratch:
   issue: 40
@@ -215,35 +272,45 @@ open_hypotheses:
 current_frontier:
   issue: 35
   objective: >-
-    Finish the same-mission WP1 organization proof by recursively decomposing the two broad accepted
-    authorities that remain unresolved below the top-level topology, then integrate all three domain
-    subtrees from a bird's-eye perspective before deciding WP1 closure/promotion.
+    Replicate the complete pre-execution organization pipeline in a materially different domain
+    without exposing concrete Keto topology, then compare the independently generated organization
+    against the Keto evidence for generalization, topology anchoring/symmetry, context projection,
+    and any missing organization semantics before deciding WP1 promotion/closure.
 
 next_experiment:
-  id: WP1-ORG-PROOF-003
-  seed_issue: 57
-  mode: MODELRAIL_LIVE_FULL_RECURSIVE_ORGANIZATION
-  inherited_run: WP1-ORG-PROOF-002
-  changed_variable: COMPLETE_REMAINING_BROAD_AUTHORITY_DECOMPOSITION_AND_WHOLE_TOPOLOGY_ASSESSMENT
+  id: WP1-ORG-PROOF-004
+  seed_issue: 67
+  mode: MODELRAIL_LIVE_CROSS_DOMAIN_END_TO_END_ORGANIZATION
+  seed_mission: Develop an excellent automated crypto trading system.
+  changed_variable: DOMAIN_SWITCH_WITH_KETO_TOPOLOGY_EXCLUDED_FROM_GENERATION
   intent: >-
-    Inherit the accepted Proof 002 Mission Manifest, accepted top-level topology, and accepted recipe
-    subtree. Fresh KETO-INTEGRITY-AUTHORITY and PRODUCT-EXPERIENCE-AUTHORITY responsibilities each
-    derive their own sufficient child execution organization from task-relevant mission/interface
-    context. ROOT then integrates all three subtrees and persists a FULL_PRE_EXECUTION_ORGANIZATION_PACKAGE.
+    Repeat decision-delta human clarification, Mission Manifest creation, fresh initial organization
+    proposal/review, recursive organization of every broad authority, and whole-topology integration
+    in a new trading domain. No substantive trading, execution, deployment, financial recommendation,
+    or implementation is authorized.
+  isolation_rule: >-
+    Concrete Keto organization artifacts, branch counts, subtree shapes, and role examples are excluded
+    from the generation path. Cross-run comparison happens only after terminal.
+  activation_semantics_under_test: >-
+    Defined-but-unstarted responsibilities keep conversation_id null; responsibility_id is sufficient
+    for future routing and the broker binds conversation_id on first actual dispatch. ACTIVE means
+    organization membership, not executing state.
   human_escalation_rule: >-
-    Do not add a fixed human gate. If live organization work discovers a genuine need to revise a
-    commitment established by canonical human input, return it upward; only RUN-AUTHORITY may PAUSE.
-    Do not manufacture such a conflict.
+    Do not add a fixed extra human gate. A genuine proposal to revise canonical human intent must travel
+    upward and may justify PAUSE; do not manufacture such a conflict.
   reviewer_scope: >-
-    Reviewer-negative/revision testing is explicitly not part of this proof.
+    Normal independent organization review remains in the pipeline; deliberate negative/revision testing
+    is not part of this cross-domain replication.
 
 explicitly_open:
+  - whether the organization/clarification principles generalize beyond the Keto domain
+  - whether the Keto 3x3 topology reflects mission structure or anchoring/symmetry bias
   - whether decision-delta mission clarification should eventually become reusable pre-organization behavior rather than an experimental responsibility name
-  - exact minimal canonical representation of organization design versus run-specific organization state
+  - exact minimal canonical representation of organization design versus run-specific organization state beyond the clarified responsibility identity/activation distinction
   - whether authority/execution distinction needs new schema semantics or is sufficiently expressible through existing authority/task contracts
-  - whether responsibility lifecycle needs semantics beyond current identity/task/status behavior for persistent staff versus temporary consultants
+  - whether responsibility lifecycle needs semantics beyond ACTIVE/RETIRED for post-run persistence; defer unless new evidence requires it
   - whether organization review requires any reusable capability contract after negative-test evidence
-  - context projection rules so specialists receive sufficient mission/interface context without full-archive flooding
+  - context projection rules that minimize bias while remaining sufficient
   - how later organization changes disposition already existing work; defer to WP5
   - interface ownership; observe but do not introduce an Interface Manager
   - long-term reporting/artifact design in WP2
@@ -254,14 +321,15 @@ explicitly_open:
 known_nonblocking_anomalies:
   - Modelrail terminal state and GitHub issue lifecycle/status can diverge; treat as later lifecycle evidence
   - PROJECT_STATE requires explicit projection refresh after live runs
+  - Proof 003 contains historical leaf issues whose conversation_id was pre-bound inconsistently; preserve as evidence rather than rewriting history
 
 non_goals_now:
   - add permanent Organization Architect, Mission Clarifier, Reviewer, Auditor, Tester, Consultant, or Interface Manager roles to Core
-  - add a fixed generic intake questionnaire
+  - add a fixed generic or trading intake questionnaire
   - add a terminal UI or new Modelrail Core human-input action
   - change Modelrail main
-  - perform substantive Keto/cookbook execution in Proof 003
-  - implement runtime organization mutation/impact handling in Proof 003
-  - mix reviewer-negative testing into Proof 003
-  - switch domains before the current same-mission organization hardening is complete
+  - perform substantive trading, code deployment, market execution, financial recommendation, or implementation in Proof 004
+  - implement runtime organization mutation/impact handling in Proof 004
+  - mix reviewer-negative testing into Proof 004
+  - expose Keto concrete topology to Proof 004 organization generation
   - use topology similarity, wall-clock duration, token quotas, arbitrary hierarchy depth, or arbitrary worker counts as quality criteria
