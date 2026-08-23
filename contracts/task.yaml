@@ -1,6 +1,6 @@
 contract:
   id: mandate.task
-  version: "0.1"
+  version: "0.2"
   purpose: define one delegated unit of semantic work
 
 required_fields:
@@ -26,7 +26,11 @@ fields:
 
   objective:
     type: string
-    rule: state what must be achieved without silently changing parent authority
+    rule: >-
+      State what must be achieved without silently changing parent authority, and make clear
+      which inherited parent obligation, judgment, uncertainty, risk, or deliverable this work
+      can materially change. Do not create work merely from a conventional role, output heading,
+      or preferred method.
 
   acceptance:
     type: list
@@ -56,4 +60,6 @@ invariants:
   - the assignee may return a result but may not accept this task
   - acceptance criteria belong to the delegating authority
   - task-specific instructions cannot expand assignee authority
+  - task objective must materially contribute to the assignee responsibility mandate and an inherited parent obligation, judgment, uncertainty, risk, or deliverable
+  - task objective may select methods freely inside authority but may not invent relevance or create a new responsibility boundary by implication
   - GitHub issue open or closed state may represent task openness or accepted closure; execution completion alone must not close the issue
