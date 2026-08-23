@@ -1,7 +1,7 @@
 project:
   id: mandate
-  state_version: "0.1"
-  status: FOUNDATION_PROOF_ACTIVE
+  state_version: "0.2"
+  status: ARCHITECTURE_RESEARCH_ACTIVE
 
 accepted_foundation:
   protocol: mandate.coordination@0.1
@@ -32,135 +32,135 @@ accepted_foundation:
     github_is_canonical_semantic_state: true
     modelrail_is_execution_broker: true
 
-foundation_proof:
-  parent_issue: 1
+architecture_discipline:
+  statement: >-
+    Prefer the smallest stable semantic rules that cover whole classes of failure.
+    New permanent roles, modes, gates, states, or protocol concepts require evidence that
+    existing primitives cannot express the needed behavior cleanly and that the addition
+    removes more special cases than it creates.
+  external_examples_are_evidence_not_templates: true
+
+historical_evidence:
+  foundation_smokes:
+    note: >-
+      Earlier P0/P1/P2 issues are closed historical evidence. Their original acceptance
+      wording and unresolved observations are not retroactively rewritten.
+  creative_live_001:
+    observation: >-
+      A mechanically correct but shallow ROOT-centered creative organization produced a
+      formally complete yet substantively weak result. Output decomposition had been
+      mistaken for responsibility decomposition.
+  creative_studio_live_001:
+    observation: >-
+      A broader research/challenge studio improved search and reached STAR_GREENLIGHT,
+      but still exposed a shallow authority graph, excessive substantive work inside broad
+      responsibilities, compressed human-facing output, and rapid convergence.
+    terminal: SUCCESS
+    epistemic_limit: >-
+      STAR_GREENLIGHT was an internal production-candidate judgment, not empirical proof
+      of representative audience or market success.
+
+architecture_work_packages:
   sequence:
-    - issue: 2
-      id: P0
-      objective: multi-turn happy path with parallel workers and same-conversation follow-up
-      state: TERMINAL_PATH_PROVEN_ACCEPTANCE_PENDING
-      acceptance_open:
-        - criterion_id: P0-A10
-          observation: >-
-            P0-LIVE-003 reached TERMINATE SUCCESS only on the dependent experimental Modelrail
-            branch that contains the separately justified post-submit visibility fix under
-            src/modelrail/conversation/state.py. Do not silently reinterpret or rewrite P0-A10.
-    - issue: 3
-      id: P1
-      objective: contract-bound rejection and correction
-      state: READY_EXPERIMENTAL
-    - issue: 4
-      id: P2
-      objective: restart without duplicate dispatch
-      state: BLOCKED_BY_P1
+    - issue: 35
+      id: WP1
+      title: Mandatory organization design before execution
+      state: ACTIVE_FRONTIER
+    - issue: 36
+      id: WP2
+      title: Reporting and project artifact architecture
+      state: BACKLOG_AFTER_WP1
+    - issue: 37
+      id: WP3
+      title: Transparent decision and acceptance records
+      state: BACKLOG_AFTER_WP2
+    - issue: 38
+      id: WP4
+      title: Divergence, challenge, and convergence protocol
+      state: BACKLOG_AFTER_WP3
+    - issue: 39
+      id: WP5
+      title: Dynamic organization, SIGNAL routing, and issue lifecycle audit
+      state: BACKLOG_AFTER_WP4
 
-observed_failures:
-  - id: P0-F001
-    run_id: P0-LIVE-001
-    classification: BROKER_PROTOCOL_OVERMODELED
-    observation: >-
-      RUNNING_WAIT was exposed as an Assistant-emitted handoff even though waiting is derivable
-      from broker queue/pending state. After the initial worker frontier completed, the Root emitted
-      RUNNING_WAIT with no remaining broker work, producing RUNNING_WAIT_WITHOUT_OTHER_WORK and the
-      same failure on resume.
-    correction_result: >-
-      RUNNING_WAIT was removed from Assistant actions and retained only as broker-internal runtime
-      state. P0-LIVE-002 passed this former failure point, so the simplification is supported by the
-      next live run.
-
-  - id: P0-F002
-    run_id: P0-LIVE-002
-    classification: MODELRAIL_POST_SUBMIT_VISIBILITY_REPLAY
-    observation: >-
-      The corrected broker reached Run Authority -> Root -> parallel FEASIBILITY and OPTIMALITY
-      worker execution. Both workers persisted canonical RESULT records in GitHub. On the first
-      addressed return to the existing ROOT conversation, one Modelrail SEND returned success and
-      was then issued again with the same internal turn id before materialization became visible,
-      producing DUPLICATE_BLOCKED / DUPLICATE_MATERIALIZATION.
-    evidence: >-
-      The trace shows the same logical ROOT turn id sent twice. The external broker had submitted
-      one pending TurnRef; the duplicate arose inside Conversation progression while recovering a
-      SUBMIT_RETURNED turn from an immediate NOT_MATERIALIZED read.
-    correction_result: >-
-      The dependent experimental branch changed only SUBMIT_RETURNED recovery so immediate
-      NOT_MATERIALIZED waits for visibility instead of replaying the logical SEND, while
-      SUBMIT_AMBIGUOUS plus positively proven absence remains replay-safe. The deterministic
-      visibility-lag regression and broker boundary both passed, and P0-LIVE-003 then completed
-      the full multi-turn execution path through same-conversation verification, Root acceptance,
-      and Run Authority TERMINATE SUCCESS without duplicate materialization.
+wp1_hypotheses_under_test:
+  - id: O1_ORGANIZATION_BEFORE_EXECUTION
+    status: PROVISIONAL_TEST
+    hypothesis: >-
+      Ordinary domain execution should not begin until an explicit initial organization
+      design is persisted and independently challenged.
+  - id: O2_AUTHORITY_EXECUTION_SEPARATION
+    status: PROVISIONAL_TEST
+    hypothesis: >-
+      A non-leaf authority should organize, delegate, integrate, judge, and accept its
+      domain rather than substituting for the substantive execution organization beneath it.
+  - id: O3_MISSION_RELEVANCE
+    status: PROVISIONAL_TEST
+    hypothesis: >-
+      Every responsibility/task should identify which inherited obligation, judgment,
+      uncertainty, risk, or deliverable it can materially change.
+  - id: H_RECURSIVE_ORGANIZATION_DESIGN
+    status: PROVISIONAL_TEST
+    hypothesis: >-
+      Initial organization should establish justified authority/domain topology rather than
+      predict the complete leaf graph; broad authorities should recursively design their own
+      child execution structure before doing substantive work.
+  - id: H_MISSION_CLARIFICATION_BEFORE_ORGANIZATION
+    status: UNPROVEN_OBSERVE
+    hypothesis: >-
+      An iterative intake/grill-me step may be needed before organization design to clarify
+      mission dimensions that materially change domain weighting, product form, scope,
+      audience, constraints, or evidence needs.
+    evidence_needed: >-
+      Run an intentionally underspecified organization-design baseline first and distinguish
+      failures caused by organization logic from failures caused by unresolved mission definition.
+    enforcement: NONE
 
 open_hypotheses:
-  posture: >-
-    These are observations to falsify or support in live runs. They are not protocol rules,
-    validator requirements, or implementation commitments. Prefer simplifying an existing rule or
-    state transition before promoting a new invariant.
-
-  candidates:
-    - id: H_OBLIGATION_NO_IMPLICIT_DISCHARGE
-      status: UNPROVEN_OBSERVE
-      hypothesis: >-
-        A delegated obligation may need an explicit lifecycle invariant preventing it from disappearing
-        after FAILED, INCOMPLETE, replacement work, or organizational change without acceptance,
-        supersession/withdrawal, or run termination.
-      evidence_needed: >-
-        Observe whether an unresolved delegated obligation can actually disappear or become ownerless
-        in live runs under the current eight rules and contracts.
-      enforcement: NONE
-
-    - id: H_DISPATCHED_CONTRACT_IMMUTABILITY
-      status: UNPROVEN_OBSERVE
-      hypothesis: >-
-        A dispatched contract may need an immutable identity or explicit revision lineage so later
-        acceptance can prove which objective and criteria governed execution.
-      evidence_needed: >-
-        Observe whether live coordination produces ambiguous, silently changed, or disputed task
-        contracts and whether existing GitHub history plus R5/R6 is insufficient.
-      enforcement: NONE
-
-    - id: H_ORDINARY_DELEGATOR_EQUALS_PARENT
-      status: UNPROVEN_OBSERVE
-      hypothesis: >-
-        Ordinary downward delegation may need a deterministic invariant that the task delegator equals
-        the assignee's accountable parent, otherwise sideways work assignment could bypass SIGNAL-only
-        semantics.
-      evidence_needed: >-
-        Observe whether current agents ever create a task for a responsibility they do not own and what
-        semantic problem, if any, results.
-      enforcement: NONE
-
-    - id: H_RETIREMENT_REQUIRES_CLEAR_OBLIGATIONS
-      status: DEFERRED_UNPROVEN
-      hypothesis: >-
-        A responsibility may need to remain non-retirable while it owns unresolved obligations or active
-        children so accountability cannot become orphaned.
-      evidence_needed: >-
-        Evaluate only once live runs actually exercise responsibility retirement or reorganization.
-      enforcement: NONE
+  - id: H_OBLIGATION_NO_IMPLICIT_DISCHARGE
+    status: UNPROVEN_OBSERVE
+    enforcement: NONE
+  - id: H_DISPATCHED_CONTRACT_IMMUTABILITY
+    status: UNPROVEN_OBSERVE
+    enforcement: NONE
+  - id: H_ORDINARY_DELEGATOR_EQUALS_PARENT
+    status: UNPROVEN_OBSERVE
+    enforcement: NONE
+  - id: H_RETIREMENT_REQUIRES_CLEAR_OBLIGATIONS
+    status: DEFERRED_UNPROVEN
+    enforcement: NONE
 
 current_frontier:
+  issue: 35
   objective: >-
-    P0 has mechanically proven the intended terminal execution path, but strict P0 acceptance remains
-    open on the literal scope of P0-A10 because the successful run used the dependent runtime-fix branch.
-    Do not rewrite that criterion retroactively. P1 may proceed experimentally on the same validated
-    branch to gather rejection/correction evidence, while the P0-A10 disposition remains an explicit
-    architectural decision rather than a hidden acceptance assumption.
-  issue: 3
+    Test whether minimal organization rules O1/O2/O3 plus recursive authority decomposition
+    can produce a justified, non-flat initial organization without hard-coding domain roles.
+    Begin with a small baseline before implementation or foundation promotion.
+
+next_experiment:
+  id: WP1-ORG-BASELINE-001
+  intent: >-
+    Give the current organization-design hypothesis an intentionally underspecified mission,
+    observe the topology it produces without a grill-me intake loop, and evaluate whether
+    failures come from organization design, mission ambiguity, or both.
+  runtime_claim: >-
+    A manual semantic dry-run may be used for initial design inspection, but it is not a
+    substitute for an independent Modelrail/runtime proof required for WP1 acceptance.
 
 explicitly_open:
-  - disposition of P0-A10 after a justified runtime bug fix was required by live evidence
-  - exact long-term persisted run/organization artifact layout after P0 evidence
-  - validator implementation beyond the narrow broker boundary checks exercised by P0
-  - bootstrap/grill-me intake protocol before runtime organization creation
-  - role profiles beyond explicit responsibility and authority
-  - conduct rules earned from observed coordination failures
-  - policy for deliberate independent fresh-perspective conversations
+  - whether mission clarification must become a pre-organization contract/skill
+  - exact minimal canonical representation of organization design
+  - exact semantics that distinguish authority nodes from execution/leaf nodes
+  - whether organization review requires a permanent role or only an independent responsibility
+  - context projection rules so specialists receive sufficient interfaces and mission context without full-archive flooding
+  - long-term reporting/artifact design in WP2
+  - quality/decision learning protocol in WP3
+  - divergence/convergence implementation mechanisms in WP4
+  - dynamic organization and closure mechanics in WP5
 
 non_goals_now:
-  - silently reinterpret or rewrite P0-A10 after observing the successful run
-  - promote open hypotheses into rules without live evidence
-  - contract revision/versioning before a concrete ambiguity is observed
-  - fixed universal organization chart
-  - universal role library
-  - research-specific workflow
-  - automatic task-count quotas
-  - broad supervisor hierarchy before a concrete failure requires it
+  - promote WP1 hypotheses into accepted foundation rules before proof
+  - implement the grill-me/intake hypothesis before the baseline exposes its necessity
+  - hard-code a universal organization chart, role library, hierarchy depth, or headcount
+  - copy Forge, OpenCode Swarm, Sol Advisor, or other external taxonomies into Mandate Core
+  - use wall-clock duration, token quotas, or arbitrary iteration counts as quality criteria
