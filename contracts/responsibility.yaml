@@ -1,9 +1,10 @@
 contract:
   id: mandate.responsibility
-  version: "0.1"
+  version: "0.2"
   purpose: >-
     Define one concrete responsibility instance in a run organization. Titles do not
-    confer authority; authority is explicit.
+    confer authority; authority is explicit. Responsibility identity and execution-
+    conversation activation are distinct concepts.
 
 required_fields:
   - responsibility_id
@@ -17,7 +18,9 @@ required_fields:
 fields:
   responsibility_id:
     type: string
-    description: stable identity within the run
+    description: >-
+      Stable canonical identity within the run. This is the identity used for accountability
+      and routing. It exists before any Modelrail conversation is necessarily created.
 
   run_id:
     type: string
@@ -57,8 +60,10 @@ fields:
       - string
       - null
     description: >-
-      Durable Modelrail conversation binding for this responsibility instance. Null only
-      until the execution broker creates the first conversation for a newly activated responsibility.
+      Durable Modelrail conversation binding created by the execution broker when this
+      responsibility is first actually dispatched/activated. Keep null while the responsibility
+      is only canonically defined and has never been started. A predictable future conversation
+      name is not yet a bound conversation and must not be persisted as though it already exists.
 
   conduct_refs:
     type: list
@@ -70,8 +75,17 @@ fields:
       - ACTIVE
       - RETIRED
     default: ACTIVE
+    description: >-
+      Organizational membership/lifecycle status only. ACTIVE means the responsibility currently
+      exists in the canonical run organization and has not been retired. It does not imply that a
+      Modelrail conversation exists, that a substantive task has been released, or that work is
+      pending/running. Execution state belongs to broker/task state, not this status field.
 
 invariants:
+  - responsibility_id is the canonical responsibility/routing identity; conversation_id is only its durable execution-context binding
+  - ACTIVE with conversation_id null is valid for a responsibility that is defined in the organization but has never been dispatched
+  - the execution broker binds conversation_id on first dispatch/activation; organization design must not pre-bind an unstarted responsibility merely because the deterministic name is knowable
   - one responsibility instance maps to at most one active durable conversation
-  - task volume does not create new conversations; new responsibility instances do
+  - task volume does not create new conversations; additional tasks for an already-started responsibility continue its existing conversation
+  - responsibility status does not encode task release, queue/pending state, or substantive execution state
   - conversation history is context, while GitHub remains canonical authority
