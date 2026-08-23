@@ -1,7 +1,7 @@
 project:
   id: mandate
-  state_version: "0.8"
-  status: ARCHITECTURE_RESEARCH_ACTIVE
+  state_version: "0.9"
+  status: WP1_COMPLETE_POST_WP1_REBASE_PENDING
 
 accepted_foundation:
   protocol: mandate.coordination@0.1
@@ -31,6 +31,11 @@ accepted_foundation:
     responsibility_conversation_binding: durable
     github_is_canonical_semantic_state: true
     modelrail_is_execution_broker: true
+  canonical_contracts:
+    responsibility: mandate.responsibility@0.3
+    task: mandate.task@0.2
+    result: mandate.result@0.1
+    handoff: mandate.execution_handoff@0.1
 
 architecture_discipline:
   statement: >-
@@ -39,6 +44,57 @@ architecture_discipline:
     existing primitives cannot express the needed behavior cleanly and that the addition
     removes more special cases than it creates.
   external_examples_are_evidence_not_templates: true
+
+accepted_wp1_baseline:
+  issue: 35
+  status: COMPLETE_ACCEPTED_A1_A11
+  closure_comment: 5386241553
+  principles:
+    O1_ORGANIZATION_BEFORE_EXECUTION: >-
+      Ordinary substantive domain execution does not begin until an explicit initial organization
+      design is persisted and independently challenged.
+    O2_AUTHORITY_EXECUTION_SEPARATION: >-
+      A non-leaf authority organizes, delegates, integrates, judges and accepts its delegated domain;
+      it does not substitute for the substantive execution organization beneath it.
+    O3_MISSION_RELEVANCE: >-
+      Every responsibility and delegated task must state which inherited obligation, judgment,
+      uncertainty, risk or deliverable it materially owns or can change. Relevance cannot be invented
+      from a conventional role, preferred method, output heading or anticipated future scope.
+    RECURSIVE_ORGANIZATION_DESIGN: >-
+      Initial design may stop at justified broad authority/domain boundaries. Broad authorities
+      recursively derive only the child execution organization their delegated domain actually requires
+      before substantive work begins.
+    INDEPENDENT_ORGANIZATION_CHALLENGE: >-
+      Organization review must be independent enough to return REVISION_REQUIRED for contract-grounded
+      material defects. No privileged Reviewer role class is required; a fresh responsibility plus a
+      bounded review contract was sufficient in live evidence.
+  supported_patterns_not_core_types:
+    - decision-delta mission clarification before organization when materially different human-owned answers can change mission or organization
+    - Mission Manifest as a compact artifact pattern with human provenance and explicit deferred unknowns
+    - whole-topology bird's-eye integration as an accountable-parent obligation
+    - review records expressed as evidence -> governing boundary -> material consequence -> disposition -> bounded revision
+  representation:
+    responsibility_contract: mandate.responsibility@0.3
+    task_contract: mandate.task@0.2
+    responsibility_boundary_fields:
+      - mandate
+      - prohibited_scope
+    notes:
+      - responsibility_id remains canonical accountability/routing identity
+      - conversation_id is bound only on first actual DISPATCH and remains null for defined-but-never-dispatched responsibilities
+      - ACTIVE denotes organizational membership/not-retired only, not task release or execution state
+      - authority/execution behavior is expressed by parent identity, explicit authority and delegated Task/Result contracts; no AUTHORITY/EXECUTION kind is added
+      - task objective carries material parent contribution; no separate rich organization ontology or parent_contribution object is required
+  simplification_decisions:
+    - no permanent Organization Architect class
+    - no permanent Mission Clarifier class
+    - no permanent Reviewer/Auditor/Tester class
+    - no Interface Manager class without an independently justified owned domain
+    - no fixed questionnaire, role catalogue, branch count, headcount, hierarchy depth, runtime duration or topology template
+    - no new Modelrail human-input action; existing PAUSE plus explicit reactivation is sufficient for observed behavior
+    - no whole-topology machine gate/action
+    - no new responsibility lifecycle state from WP1 evidence
+    - no mandatory Core artifact type named Mission Manifest
 
 historical_evidence:
   foundation_smokes:
@@ -93,7 +149,7 @@ historical_evidence:
     epistemic_limits:
       - the concrete experimental role names are not foundation doctrine
       - no fixed clarification-round count is justified
-      - organization review again returned ACCEPTABLE on the first proposal; REVISION_REQUIRED remains unproven
+      - organization review returned ACCEPTABLE on the first proposal in this proof
       - only the recipe broad authority was recursively decomposed in this proof
       - no substantive cookbook execution was authorized
   wp1_org_proof_003:
@@ -115,12 +171,12 @@ historical_evidence:
     positive_human_boundary_observation: >-
       Neither broad authority discovered a genuine conflict with canonical human commitments or
       accepted top-level authority, so no artificial PAUSE was created. This supports autonomous
-      resolution inside delegated authority but does not exercise the escalation branch.
+      resolution inside delegated authority but does not exercise the later re-approval branch.
     anomalies:
       - some defined-but-never-dispatched Keto execution leaves were persisted with deterministic non-null conversation_id values, while equivalent Product leaves correctly used null
       - all organization-only/future execution responsibilities use ACTIVE although execution is blocked; current interpretation is organizational membership, not running state
-      - the completed topology is notably symmetric with three execution children beneath each broad authority; each rationale is plausible, but anchoring/symmetry bias remains untested
-      - Modelrail terminal state and GitHub issue lifecycle/status can still diverge
+      - the completed topology is notably symmetric with three execution children beneath each broad authority; each rationale is plausible, but anchoring/symmetry bias remained untested at this point
+      - Modelrail terminal state and GitHub issue lifecycle/status can diverge
     corrective_evidence: >-
       Broker routing already uses responsibility_id as target identity and creates/binds the
       durable conversation on first actual DISPATCH. Therefore pre-binding a deterministic future
@@ -167,254 +223,253 @@ historical_evidence:
       return, resolved on attempt 1. There were no protocol recoveries, transport repairs, recovery block,
       pending work, or semantic proof failure. Exact cause is not established; keep as non-blocking observation.
     epistemic_limits:
-      - reviewer REVISION_REQUIRED behavior remains unproven because the fresh review again returned ACCEPTABLE
       - two domains support cross-domain generalization but do not prove universal topology behavior
       - no substantive execution occurred, so runtime SIGNAL use and dynamic organization mutation were not exercised
       - no later proposal attempted to revise an already accepted human commitment, so the human re-approval branch remains unproven
+  wp1_review_proof_001:
+    seed_issue: 87
+    run_id: WP1-REVIEW-PROOF-001
+    terminal: SUCCESS
+    run_authority_acceptance: ACCEPTED_RVT1_RVT10
+    evidence_issues: [87, 88, 89]
+    reviewer_result_ref: issue:89#issuecomment-5386097957
+    root_result_ref: issue:88#issuecomment-5386103353
+    run_authority_result_ref: issue:87#issuecomment-5386107186
+    candidate_disposition: REVISION_REQUIRED
+    findings: [OR-F1, OR-F2, OR-F3, OR-F4, OR-F5]
+    non_findings: [OR-NF1, OR-NF2, OR-NF3, OR-NF4]
+    observation: >-
+      A fresh ordinary ORGANIZATION-REVIEW responsibility behaviorally exercised WP1-A7. It rejected a
+      formally complete but materially defective candidate for contract-grounded reasons: collapsed
+      strategy authorship/independent validation, downward expansion of risk-policy authority, unauthorized
+      transfer/withdrawal authority, a broad authority acting as its own executor, and promotion of deferred
+      customer-product scope. It issued bounded revisions for every blocking finding while explicitly preserving
+      defensible nonstandard choices such as combined strategy/risk parent accountability, one-child authorities,
+      uneven hierarchy depth, and ACTIVE responsibilities with null conversation bindings.
+    epistemic_limit: >-
+      This proves the revision branch is behaviorally reachable and useful under a precise review contract.
+      It does not prove universal defect detection, justify a permanent Reviewer role class, periodic control layer,
+      audit cadence, milestone protocol, or universal review taxonomy.
 
 architecture_work_packages:
+  status: REBASE_REQUIRED_AFTER_WP1
+  note: >-
+    The original WP2-WP5 sequence was drafted before WP1 evidence matured. Do not automatically activate WP2.
+    First re-evaluate boundaries, ordering, overlap and missing work against the accepted post-WP1 baseline.
   sequence:
     - issue: 35
       id: WP1
       title: Mandatory organization design before execution
-      state: CLOSURE_CANDIDATE_TWO_BOUNDED_OPEN_ITEMS
+      state: COMPLETE_ACCEPTED
     - issue: 36
       id: WP2
       title: Reporting and project artifact architecture
-      state: BACKLOG_AFTER_WP1
+      state: PENDING_POST_WP1_REBASE_REVIEW
     - issue: 37
       id: WP3
       title: Transparent decision and acceptance records
-      state: BACKLOG_AFTER_WP2
+      state: PENDING_POST_WP1_REBASE_REVIEW
     - issue: 38
       id: WP4
       title: Divergence, challenge, and convergence protocol
-      state: BACKLOG_AFTER_WP3
+      state: PENDING_POST_WP1_REBASE_REVIEW
     - issue: 39
       id: WP5
       title: Dynamic organization, SIGNAL routing, and issue lifecycle audit
-      state: BACKLOG_AFTER_WP4
+      state: PENDING_POST_WP1_REBASE_REVIEW
 
-wp1_hypotheses_under_test:
+wp1_hypotheses_disposition:
   - id: O1_ORGANIZATION_BEFORE_EXECUTION
-    status: STRONG_POSITIVE_EVIDENCE_FOUR_LIVE_PROOFS_TWO_DOMAINS
-    hypothesis: >-
-      Ordinary domain execution should not begin until an explicit initial organization
-      design is persisted and independently challenged.
+    status: ACCEPTED_WP1_ARCHITECTURE_PRINCIPLE
+    evidence: FOUR_LIVE_PROOFS_TWO_DOMAINS
   - id: O2_AUTHORITY_EXECUTION_SEPARATION
-    status: STRONG_POSITIVE_EVIDENCE_FULL_TOPOLOGIES_TWO_DOMAINS
-    hypothesis: >-
-      A non-leaf authority should organize, delegate, integrate, judge, and accept its
-      domain rather than substituting for the substantive execution organization beneath it.
-    schema_implication: >-
-      Current evidence does not justify a new AUTHORITY/EXECUTION kind in the core responsibility enum.
-      Existing parent identity, authority booleans, delegated tasks/results, and bounded responsibility
-      contracts expressed the separation in Proof 004.
+    status: ACCEPTED_WP1_ARCHITECTURE_PRINCIPLE
+    evidence: FULL_TOPOLOGIES_TWO_DOMAINS_PLUS_NEGATIVE_REVIEW
   - id: O3_MISSION_RELEVANCE
-    status: STRONG_POSITIVE_EVIDENCE_FULL_TOPOLOGIES_TWO_DOMAINS
-    hypothesis: >-
-      Every responsibility/task should identify which inherited obligation, judgment,
-      uncertainty, risk, or deliverable it can materially change.
-    representation_implication: >-
-      Mission relevance is clearly useful, but current evidence does not yet establish whether it requires
-      a new formal responsibility field or is sufficiently carried by responsibility boundary text plus
-      task objective/acceptance/context.
+    status: ACCEPTED_WP1_ARCHITECTURE_PRINCIPLE
+    evidence: FULL_TOPOLOGIES_TWO_DOMAINS_PLUS_NEGATIVE_REVIEW
   - id: H_RECURSIVE_ORGANIZATION_DESIGN
-    status: STRONG_POSITIVE_EVIDENCE_FULL_TOPOLOGIES_TWO_DOMAINS
-    hypothesis: >-
-      Initial organization should establish justified authority/domain topology rather than
-      predict the complete leaf graph; broad authorities should recursively design their own
-      child execution structure before doing substantive work.
+    status: ACCEPTED_WP1_ARCHITECTURE_PRINCIPLE
+    evidence: FULL_RECURSIVE_TOPOLOGIES_TWO_DOMAINS
   - id: H_MISSION_CLARIFICATION_BY_DECISION_DELTA
-    status: STRONG_POSITIVE_EVIDENCE_TWO_LIVE_HUMAN_PROOFS_CROSS_DOMAIN
-    hypothesis: >-
-      Before organization design, unresolved mission dimensions should be clarified only when
-      materially different plausible answers could change mission scope, product direction,
-      organization/domain weighting, authority boundaries, or acceptance criteria.
-    observed_mechanism: >-
-      Existing PAUSE plus explicit operator reactivation was sufficient; no terminal UI or new
-      Modelrail Core action was required. Proof 004 additionally showed that canonical human input
-      can materially correct the seed before Manifest acceptance and organization design.
-    enforcement: EXPERIMENTAL_WORKING_BASIS
+    status: STRONGLY_SUPPORTED_PATTERN_NOT_CORE_PRIMITIVE
+    evidence: TWO_LIVE_HUMAN_PROOFS_CROSS_DOMAIN
+    note: >-
+      Existing PAUSE plus explicit operator reactivation was sufficient; no terminal UI, fixed questionnaire,
+      fixed round count or permanent Clarifier class is justified. Canonical human input can materially correct
+      the seed before Manifest acceptance and organization design.
+  - id: H_REVIEW_CAPABILITY_PATTERN
+    status: REVISION_PATH_BEHAVIORALLY_CONFIRMED_NO_ROLE_CLASS_PROMOTION
+    evidence: WP1-REVIEW-PROOF-001
+    note: >-
+      Useful independent review came from a fresh responsibility plus explicit evidence/contract/acceptance
+      boundaries. Later evidence may justify reusable review capability patterns, but WP1 does not justify a
+      privileged Reviewer/Auditor class.
 
-wp1_observations_not_yet_rules:
+wp1_observations_not_promoted:
   - id: H_HUMAN_APPROVAL_AT_MATERIAL_COMMITMENT_BOUNDARIES
-    status: PRECOMMITMENT_HITL_POSITIVE_REAPPROVAL_BRANCH_UNPROVEN
+    status: PRECOMMITMENT_HITL_POSITIVE_LATER_REAPPROVAL_BRANCH_UNPROVEN
     hypothesis: >-
-      Human involvement should follow ownership of material commitments rather than fixed workflow
-      step numbers. A lower responsibility may refine work inside accepted delegated authority, but
-      should not silently rewrite a commitment established by canonical human input. A material
-      proposed change to such a commitment must travel upward and may require human acceptance.
+      Human involvement should follow ownership of material commitments rather than fixed workflow step numbers.
+      A material proposed change to a human-established accepted commitment must travel upward and may require
+      human acceptance.
     evidence: >-
-      Proof 004 used two real human clarification boundaries and canonical human input corrected the seed
-      before Manifest acceptance. No later responsibility proposed changing an already accepted human commitment,
-      so no re-approval PAUSE was naturally required. Current evidence does not justify a fixed extra post-Manifest
-      or post-organization human gate; existing R6 plus R8 already express the needed ownership/run-control path.
+      Proof 004 used two real human clarification boundaries and canonical human input corrected the seed before
+      Manifest acceptance. No later responsibility attempted to change an already accepted human commitment.
     enforcement: NONE
   - id: H_TASK_RELEVANT_CONTEXT_PROJECTION
     status: POSITIVE_CROSS_DOMAIN_OBSERVATION_NOT_FULLY_ISOLATED
     hypothesis: >-
-      A responsibility should receive the smallest faithful mission/domain/interface context needed
-      to integrate its work rather than the complete durable archive by default.
-    evidence: >-
-      Proof 004 excluded concrete Keto organization artifacts from the generation path and still produced
-      a coherent, materially different organization. Exact minimal/bias-optimal context remains unisolated.
+      A responsibility should receive the smallest faithful mission/domain/interface context needed to integrate
+      its work rather than the complete durable archive by default.
     enforcement: EXPERIMENT_ONLY
   - id: H_TOPOLOGY_ANCHORING_OR_SYMMETRY_BIAS
-    status: WEAKENED_BY_CROSS_DOMAIN_REPLICATION_KEEP_OBSERVE
-    hypothesis: >-
-      Prior visible organization examples may anchor later authorities toward similar branch counts,
-      checker patterns, or decomposition shape even when each local rationale is plausible.
+    status: WEAKENED_BY_CROSS_DOMAIN_REPLICATION_BACKGROUND_OBSERVATION
     evidence: >-
-      Proof 003 Keto ended 3/3/3. Proof 004, generated without concrete Keto topology exposure, ended
-      with four broad authorities and 2/4/2/3 leaves. Independent checks did not appear mechanically in
-      every subtree. Two domains are not universal proof, but no further work is currently triggered.
+      Proof 003 Keto ended 3/3/3. Proof 004, generated without concrete Keto topology exposure, ended with four
+      broad authorities and 2/4/2/3 leaves. Independent checks did not appear mechanically in every subtree.
     enforcement: NONE
+    work_triggered: false
   - id: H_ORGANIZATION_CHANGE_REQUIRES_IMPACT_DISPOSITION
     status: UNPROVEN_OBSERVE
-    hypothesis: >-
-      When an authorized organization change adds or materially changes responsibility boundaries,
-      the accountable authority may need to disposition effects on already existing obligations,
-      tasks, assumptions, and accepted results rather than merely append a new node.
-    intended_wp: WP5
+    intended_later_work: dynamic organization/lifecycle rebase candidate
     enforcement: NONE
-  - id: H_REVIEW_CAPABILITY_PATTERN
-    status: POSITIVE_REVIEW_STRUCTURE_NEGATIVE_PATH_UNPROVEN
+  - id: H_PERIODIC_PROJECT_CONTROL_OR_REVIEW_LAYER
+    status: USER_PROPOSED_OBSERVE_AFTER_WP1
     hypothesis: >-
-      Independent organization challenge is repeatedly useful, but first-pass ACCEPTABLE reviews do not
-      establish reliable rejection/revision behavior or justify a permanent Reviewer/Auditor class.
-    next_evidence: narrow reviewer-negative/revision capability test if WP1-A7 is to be literally satisfied
+      Long-running multi-domain work may benefit from periodic independent project-level review, milestone/state
+      snapshots and deviation detection. WP1 reviewer evidence suggests such behavior should first be expressed
+      through ordinary responsibilities plus explicit review contracts rather than a privileged role class.
     enforcement: NONE
+    note: >-
+      Reassess against WP2-WP5 boundaries before any implementation; do not create cadence, role or gate without
+      evidence from long-running work.
 
-wp1_foundation_rule_audit_proof_004:
+wp1_foundation_rule_audit:
   R1_NO_SELF_ACCEPTANCE:
-    disposition: MATERIALLY_ACTIVE_KEEP
-    effect: >-
-      Clarifier, Architect, Reviewer, broad authorities, and execution leaves returned results upward;
-      no responsibility authoritatively accepted its own delegated work.
+    disposition: KEEP_MATERIALLY_ACTIVE
+    evidence: >-
+      Clarifier, Architect, Reviewer, broad authorities and leaves returned results upward; the negative review
+      itself was accepted by ROOT/RUN-AUTHORITY rather than self-accepted.
   R2_SINGLE_ACCOUNTABILITY:
-    disposition: MATERIALLY_ACTIVE_KEEP
-    effect: >-
-      Every broad authority and all eleven leaves had exactly one accountable parent, enabling adjacent
-      ownership boundaries to remain explicit.
+    disposition: KEEP_MATERIALLY_ACTIVE
+    evidence: >-
+      Full topologies and the reviewer proof used one accountable parent per responsibility, preserving explicit
+      ownership and result routing.
   R3_ACCOUNTABILITY_SURVIVES_DELEGATION:
-    disposition: MATERIALLY_ACTIVE_KEEP
-    effect: >-
-      Broad authorities integrated their child organization and ROOT integrated all broad results into the
-      complete package; child completion did not discharge parent accountability.
+    disposition: KEEP_MATERIALLY_ACTIVE
+    evidence: >-
+      Broad authorities integrated child organization; ROOT integrated full topologies; in the reviewer proof ROOT
+      remained accountable for judging the reviewer result and returning it upward.
   R4_AUTHORITY_CANNOT_EXPAND_DOWNWARD:
-    disposition: STRONGLY_ACTIVE_KEEP
-    effect: >-
-      The canonical trading-only/no-withdrawal/no-transfer/no-custody boundary constrained Risk, Market
-      Execution, and System Assurance child design and did not expand downward.
+    disposition: KEEP_STRONGLY_ACTIVE
+    evidence: >-
+      Proof 004 preserved the human trading-only/no-transfer boundary. The negative review actively rejected both
+      unauthorized risk-policy modification and transfer/withdrawal authority expansion.
   R5_ACCEPTANCE_IS_CONTRACT_BOUND:
-    disposition: MATERIALLY_ACTIVE_KEEP
-    effect: >-
-      Review, ROOT acceptance, child integration, and RUN-AUTHORITY final acceptance remained tied to the
-      accepted Mission Manifest and explicit delegated/seed criteria rather than newly invented requirements.
+    disposition: KEEP_MATERIALLY_ACTIVE
+    evidence: >-
+      Positive and negative reviews, ROOT judgments and final Run Authority acceptances were tied to explicit
+      mission/task criteria rather than generic best practice or retroactive requirements.
   R6_CONTRACT_OWNERSHIP_REMAINS_UPWARD:
-    disposition: STRONGLY_ACTIVE_KEEP
-    effect: >-
-      Human answers were not inferred; the human corrected the seed before Manifest acceptance; later
-      responsibilities were prohibited from silently changing canonical human mission/capital authority.
+    disposition: KEEP_STRONGLY_ACTIVE
+    evidence: >-
+      Human answers were not inferred; human input corrected the seed before organization; the reviewer required
+      future need for transfer authority or parent risk-policy changes to propagate upward rather than be invented below.
   R7_SIGNALS_TRANSFER_INFORMATION_ONLY:
-    disposition: NOT_RUNTIME_EXERCISED_NO_DELETION_SIGNAL
-    effect: >-
-      Interfaces were modeled, but organization-only execution required no SIDEWAYS SIGNAL action. This is
-      not anomalous and supplies no evidence to remove or modify R7.
+    disposition: KEEP_UNEXERCISED_AT_RUNTIME
+    evidence: >-
+      Organization-only proofs modeled interfaces but did not require substantive runtime SIDEWAYS SIGNAL action.
+      Lack of exercise is not evidence for deletion or modification.
   R8_RUN_CONTROL_IS_EXPLICIT_AUTHORITY:
-    disposition: STRONGLY_ACTIVE_KEEP
-    effect: >-
-      RUN-AUTHORITY alone executed two PAUSE actions and final TERMINATE SUCCESS; lower responsibilities
-      only returned results upward.
-
-wp1_simplification_findings:
-  no_new_core_role_classes:
-    status: SUPPORTED
-    note: >-
-      MISSION-CLARIFICATION, ORGANIZATION-ARCHITECT, ORGANIZATION-REVIEW, Reviewer/Auditor/Tester,
-      Consultant, and Interface Manager names are not justified as permanent Core role classes. The useful
-      behavior was expressed by ordinary responsibility/task contracts and existing governance.
-  no_new_human_input_primitive:
-    status: SUPPORTED
-    note: Existing PAUSE/reactivation is sufficient for observed human-input behavior.
-  no_new_authority_execution_kind:
-    status: SUPPORTED_FOR_NOW
-    note: >-
-      Descriptive BROAD_NON_LEAF_AUTHORITY/EXECUTION_LEAF classifications were useful evidence labels, but
-      Proof 004 did not demonstrate a need to expand the current kind enum. Keep deterministic authority via
-      parent/authority/task constraints unless a later failure shows a missing enforcement primitive.
-  no_new_whole_topology_protocol_gate:
-    status: SUPPORTED_FOR_NOW
-    note: >-
-      Whole-topology integration was valuable, but ROOT's obligation follows from R3 accountability survival
-      plus R5 contract-bound acceptance. The artifact is useful; a new machine action/state is not justified.
-  mission_manifest_is_artifact_pattern_not_core_type:
-    status: SUPPORTED_FOR_NOW
-    note: >-
-      The durable semantic requirement is resolution or explicit deferral of material decision deltas before
-      organization. The current evidence does not require a permanent Core artifact type named Mission Manifest.
-  avoid_new_responsibility_lifecycle_states:
-    status: SUPPORTED_FOR_NOW
-    note: >-
-      ACTIVE as organization membership plus nullable conversation_id was sufficient in Proof 004. Post-run
-      retirement/persistence remains WP5 evidence and does not justify extra execution-like status values here.
+    disposition: KEEP_STRONGLY_ACTIVE
+    evidence: >-
+      RUN-AUTHORITY alone executed human PAUSEs and all final TERMINATE actions; lower responsibilities returned
+      results upward.
 
 responsibility_representation:
-  contract_version: "0.2"
-  clarified_semantics:
-    responsibility_id: >-
-      Stable canonical accountability/routing identity. It exists independently of whether an
-      execution conversation has been started.
-    conversation_id: >-
-      Durable Modelrail execution-context binding. It remains null for a canonically defined but
-      never-dispatched responsibility and is bound by the broker on first actual dispatch.
-    active_status: >-
-      Organizational membership/not-retired only. ACTIVE does not mean conversation-created,
-      task-released, queued, pending, or currently executing.
+  status: WP1_DELIVERABLE_RESOLVED
+  responsibility_contract_version: "0.3"
+  task_contract_version: "0.2"
+  canonical_boundary:
+    mandate: >-
+      Compact persistent ownership boundary stating which inherited mission obligation, judgment, uncertainty,
+      risk or deliverable the responsibility materially owns or can change and therefore why the node exists.
+    prohibited_scope: >-
+      Bounded list of material adjacent authority/ownership the responsibility must not absorb.
+    task_objective: >-
+      Delegated work must state the inherited parent obligation/judgment/uncertainty/risk/deliverable it can
+      materially change, without expanding assignee authority.
+  rejected_overdesign:
+    - separate rich organization ontology
+    - permanent AUTHORITY/EXECUTION kind
+    - fixed team/role taxonomy
+    - parent_contribution object duplicating task objective and mandate semantics
+    - topology-shape constraints
+  activation_semantics:
+    responsibility_id: canonical accountability/routing identity
+    conversation_id: durable execution binding created on first dispatch; null before first activation
+    active_status: organizational membership/not-retired only
   proof_004_regression: PASS_ALL_ELEVEN_UNSTARTED_LEAVES_NULL
-  remaining_representation_question: >-
-    Decide the smallest canonical place for persistent responsibility-domain ownership/material contribution,
-    result boundary, and prohibited scope. Do not create a separate rich organization ontology unless the
-    existing Responsibility graph plus Task objective/acceptance/context cannot carry these semantics cleanly.
 
 wp1_closure_assessment:
-  status: CLOSURE_CANDIDATE_WITH_TWO_BOUNDED_OPEN_ITEMS
-  core_mechanism_disposition: >-
-    Organization-before-execution, mission relevance, authority/execution separation, recursive organization,
-    decision-delta clarification, full-topology integration, and corrected activation semantics now have strong
-    live evidence including one full cross-domain replication.
-  literal_open_items:
-    - id: WP1_A7_REVIEW_REVISION_CAPABILITY
-      blocker_type: BEHAVIORAL_ACCEPTANCE_BRANCH_UNPROVEN
-      reason: >-
-        Issue #35 explicitly requires that independent organization review can reject or require revision.
-        Every live organization review so far returned ACCEPTABLE. Positive reviews cannot establish the
-        negative/revision path. Keep this as a narrow separate capability question rather than another domain proof.
-    - id: MINIMUM_CANONICAL_ORGANIZATION_REPRESENTATION
-      blocker_type: DELIVERABLE_DESIGN_DECISION
-      reason: >-
-        The evidence argues against a separate rich organization schema, but #35 still requires a minimal canonical
-        representation and ownership/parent-contribution map. Decide whether existing Responsibility + Task contracts
-        are sufficient or whether one minimal responsibility-level boundary field is necessary.
-  nonblocking_later_work:
-    - runtime organization mutation and impact disposition -> WP5
-    - responsibility retirement/lifecycle and issue-state projection -> WP5
-    - runtime SIGNAL behavior under substantive cross-domain execution -> later evidence/WP5
-    - reporting/artifact hierarchy -> WP2
-    - transparent decision learning -> WP3
-    - divergence/convergence mechanisms -> WP4
-    - topology symmetry/anchoring -> background observation only
-    - single quiescence recovery -> runtime observation only unless repeated
+  status: CLOSED_ACCEPTED
+  issue: 35
+  closure_comment: 5386241553
+  acceptance:
+    WP1_A1: SATISFIED
+    WP1_A2: SATISFIED
+    WP1_A3: SATISFIED
+    WP1_A4: SATISFIED
+    WP1_A5: SATISFIED
+    WP1_A6: SATISFIED
+    WP1_A7: SATISFIED
+    WP1_A8: SATISFIED
+    WP1_A9: SATISFIED
+    WP1_A10: SATISFIED
+    WP1_A11: SATISFIED
+  no_remaining_wp1_blocker: true
+  closure_basis: >-
+    Four organization proofs established the positive mechanism, cross-domain variation and recursive topology.
+    Responsibility/task contracts now provide the minimal canonical organization representation. The narrow
+    reviewer proof behaviorally exercised REVISION_REQUIRED and showed that independent review can detect material
+    defects without topology-template enforcement. No additional broad proof or reviewer repetition is justified
+    by the WP1 acceptance boundary.
+
+post_wp1_baseline:
+  id: POST-WP1-BASELINE-001
+  state_version: "0.9"
+  purpose: >-
+    Stable planning basis after WP1 closure. Use this baseline to reassess the remaining architecture work rather
+    than treating pre-WP1 issue sequence or wording as automatically current.
+  fixed_for_rebase:
+    - R1-R8 remain the accepted coordination foundation
+    - O1/O2/O3 and recursive organization are accepted WP1 architecture principles
+    - independent organization revision capability is required behavior, not a privileged Reviewer role class
+    - responsibility@0.3 and task@0.2 are the minimum canonical organization representation produced by WP1
+    - decision-delta human clarification is strongly supported behavior using existing PAUSE/reactivation, not a new Core primitive
+    - organization shape, role names, child counts and hierarchy depth remain mission-derived and unconstrained by templates
+    - Modelrail remains execution underlay; GitHub remains semantic/control authority
+  must_be_reassessed_before_next_wp_activation:
+    - whether issue #36 still cleanly owns reporting, project-state snapshots, milestone summaries and long-running control-report artifacts
+    - whether issue #37 should absorb reusable evidence-to-rule-to-consequence decision/review records or whether that belongs partly in #36/#38
+    - whether issue #38 still cleanly owns divergence/challenge/convergence now that independent review behavior is proven through ordinary responsibility contracts
+    - whether issue #39 should be broadened or narrowed around dynamic organization mutation, SIGNAL routing, responsibility retirement and GitHub issue lifecycle projection
+    - whether the user-proposed periodic project-level control/review concept is one cross-cutting capability or should emerge from the existing WP2-WP5 responsibilities without a new work package
+    - whether original WP2-WP5 ordering remains justified after these boundary changes
+  rule_for_rebase: >-
+    Do not preserve the old work-package sequence merely because it was previously written. Compare each remaining
+    issue against this accepted baseline, remove solved material, move misplaced questions, identify missing gaps,
+    and only then choose the next active frontier.
 
 wp1_manual_scratch:
   issue: 40
   status: NON_CANONICAL_FOR_ACCEPTANCE
   note: >-
     Issue #40 is assistant-authored same-context scratch evidence only. It did not execute through
-    Modelrail and must not be used as proof.
+    Modelrail and was not used as proof.
 
-open_hypotheses:
+open_hypotheses_after_wp1:
   - id: H_OBLIGATION_NO_IMPLICIT_DISCHARGE
     status: UNPROVEN_OBSERVE
     enforcement: NONE
@@ -427,49 +482,54 @@ open_hypotheses:
   - id: H_RETIREMENT_REQUIRES_CLEAR_OBLIGATIONS
     status: DEFERRED_UNPROVEN
     enforcement: NONE
+  - id: H_LATER_HUMAN_REAPPROVAL
+    status: UNPROVEN_OBSERVE
+    enforcement: NONE
+  - id: H_PERIODIC_PROJECT_CONTROL_OR_REVIEW_LAYER
+    status: UNPROVEN_OBSERVE
+    enforcement: NONE
 
 current_frontier:
-  issue: 35
+  id: POST_WP1_WORK_PACKAGE_REBASE
+  issue: null
   objective: >-
-    Finish WP1 closure work without another broad domain proof: resolve the minimum canonical organization
-    representation and either behaviorally exercise the narrow WP1-A7 reviewer revision branch or explicitly
-    decide that the existing acceptance boundary must remain open. Do not let later-WP lifecycle/SIGNAL/reporting
-    questions expand WP1.
+    Re-evaluate issues #36-#39 and the original WP2-WP5 sequence against POST-WP1-BASELINE-001 before activating
+    any next work package. Preserve solved WP1 semantics, remove overlap, and let newly exposed questions change
+    package boundaries or order where evidence justifies it.
 
 next_experiment:
   id: null
   reason: >-
-    No Proof 005 is justified by topology symmetry or cross-domain generalization alone. If a live experiment
-    is run before WP1 closure, it should be narrowly scoped to the still-unproven WP1-A7 reviewer revision capability,
-    not a third domain organization run.
+    WP1 is closed. No further WP1 proof is justified. The next action is architecture/work-package rebaselining,
+    not a live Modelrail experiment.
 
-explicitly_open:
-  - WP1-A7 reviewer REVISION_REQUIRED behavior
-  - minimum canonical organization representation versus run-specific descriptive fields
-  - exact universal generality beyond two domains; observation only, no work triggered
-  - whether decision-delta clarification should eventually become reusable pre-organization behavior rather than an experimental responsibility name
-  - exact minimal/bias-optimal context projection rule
-  - how later organization changes disposition already existing work; defer to WP5
-  - responsibility retirement and issue lifecycle projection; defer to WP5
-  - runtime SIGNAL behavior and interface ownership under substantive execution; defer to WP5 and do not introduce an Interface Manager
-  - long-term reporting/artifact design in WP2
-  - quality/decision learning protocol in WP3
-  - divergence/convergence implementation mechanisms in WP4
-  - dynamic organization and closure mechanics in WP5
+explicitly_open_after_wp1:
+  - exact universal organization-topology generality beyond two domains; background observation only
+  - exact minimal/bias-optimal context projection
+  - later human re-approval when accepted human commitments are materially changed after organization begins
+  - runtime SIGNAL behavior and interface ownership under substantive cross-domain execution
+  - dynamic organization mutation and impact disposition
+  - responsibility retirement and GitHub issue lifecycle projection
+  - long-running reporting, milestone/state snapshot and project-control architecture
+  - reusable decision/review record semantics and learning from decisions
+  - divergence/challenge/convergence behavior beyond the pre-execution organization review proven in WP1
+  - whether periodic project-level review/control becomes a reusable capability in long-running work
 
 known_nonblocking_anomalies:
   - Modelrail terminal state and GitHub issue lifecycle/status can diverge; treat as later lifecycle evidence
   - PROJECT_STATE requires explicit projection refresh after live runs
   - Proof 003 contains historical leaf issues whose conversation_id was pre-bound inconsistently; preserve as evidence rather than rewriting history
   - Proof 004 terminal broker state recorded one successful quiescence recovery resolved on attempt 1; exact cause is unknown and no Core change is justified from one event
+  - WP1 reviewer proof ran without quiescence/protocol/transport recovery, so the Proof-004 quiescence event did not immediately recur
 
-non_goals_now:
-  - add permanent Organization Architect, Mission Clarifier, Reviewer, Auditor, Tester, Consultant, or Interface Manager roles to Core
-  - add a fixed generic, Keto, or trading intake questionnaire
+non_goals_at_post_wp1_baseline:
+  - reopen WP1 solely to accumulate more domains or reviewer examples
+  - add permanent Organization Architect, Mission Clarifier, Reviewer, Auditor, Tester, Consultant, Project Controller, or Interface Manager roles without later evidence of a missing general capability
+  - add a fixed generic/domain intake questionnaire
   - add a terminal UI or new Modelrail Core human-input action
   - add a new authority/execution kind without a demonstrated enforcement gap
   - add a permanent whole-topology machine gate/action
-  - add extra responsibility lifecycle states before WP5 evidence
-  - change Modelrail main
-  - run another broad domain proof solely to accumulate examples
-  - use topology similarity, wall-clock duration, token quotas, arbitrary hierarchy depth, or arbitrary worker counts as quality criteria
+  - add extra responsibility lifecycle states before later lifecycle evidence
+  - hard-code organization shape, branch count, headcount, hierarchy depth, runtime duration or token quotas
+  - automatically activate WP2 merely because it was originally listed second
+  - change or merge Modelrail main without explicit authorization
