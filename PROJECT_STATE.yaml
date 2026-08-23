@@ -1,6 +1,6 @@
 project:
   id: mandate
-  state_version: "0.3"
+  state_version: "0.4"
   status: ARCHITECTURE_RESEARCH_ACTIVE
 
 accepted_foundation:
@@ -113,33 +113,15 @@ wp1_hypotheses_under_test:
       audience, constraints, or evidence needs.
     enforcement: NONE
 
-wp1_baseline_evidence:
-  - id: WP1-ORG-BASELINE-001
-    issue: 40
-    seed: Develop an excellent Keto cookbook.
-    mode: MANUAL_SEMANTIC_DRY_RUN
-    result: >-
-      The current WP1 hypotheses produced a materially non-flat candidate topology without
-      hard-coded domain roles: ROOT over Recipe Program and Book Experience authorities,
-      with Culinary Development and Keto Constraint below Recipe Program, and Editorial
-      Structure and Visual/Production below Book Experience. Leaf execution was intentionally
-      deferred to recursive organization by those authorities.
-    positive_observations:
-      - authority/execution separation remained explicit
-      - each branch could state material mission relevance
-      - speculative medical/biochemistry/legal departments were avoided
-      - the design did not need to predict every future worker
-    unresolved_observations:
-      - audience, product scale, format, jurisdiction/units, Keto strictness, scientific/medical ambition, and production constraints materially affect weighting and child structure
-      - Visual/Production was notably uncertain without product-format clarification
-      - audience/product-positioning ownership remained ambiguous without inventing a target audience
-    interpretation: >-
-      Baseline supports O2/O3 and recursive organization as useful design hypotheses.
-      It also gives supporting evidence that mission clarification may be needed upstream,
-      but does not prove a mandatory interactive grill-me loop is the smallest solution.
-    proof_limit: >-
-      Same-context manual analysis only; no independent organization review, recursive task
-      execution, or Modelrail/runtime behavior was exercised.
+wp1_manual_scratch:
+  issue: 40
+  status: NON_CANONICAL_FOR_ACCEPTANCE
+  note: >-
+    Issue #40 contains an assistant-authored same-context dry-run used only to sharpen the
+    experimental questions. It did not execute through Modelrail, had no independent review,
+    produced no durable responsibility trace, and must not be used as proof or as an answer
+    to the WP1 organization-design experiment. The Modelrail proof explicitly excludes it
+    from authorized resources to avoid anchoring.
 
 open_hypotheses:
   - id: H_OBLIGATION_NO_IMPLICIT_DISCHARGE
@@ -158,19 +140,22 @@ open_hypotheses:
 current_frontier:
   issue: 35
   objective: >-
-    Turn the promising manual WP1 baseline into a minimal canonical organization-design
-    contract and then prove independent review plus recursive authority decomposition in an
-    actual small execution before considering foundation promotion.
+    Obtain actual Modelrail evidence for WP1 organization design: delegated Organization
+    Architect work, fresh independent Organization Review, and recursive decomposition by
+    one accepted broad authority before any substantive domain execution.
 
 next_experiment:
   id: WP1-ORG-PROOF-001
+  seed_issue: 41
+  mode: MODELRAIL_REQUIRED
   intent: >-
-    Define the minimum organization-design representation needed for O1/O2/O3 and run an
-    independent structural review followed by at least one broad authority recursively
-    creating child execution responsibilities before substantive work.
+    Execute the intentionally underspecified Keto cookbook organization-design proof through
+    Modelrail. The run must not read/reuse manual issue #40. It must create durable responsibility
+    conversations, persist canonical semantic state in GitHub, exercise independent review, and
+    exercise recursive authority decomposition.
   dependency: >-
-    Do not implement the mission-clarification/grill-me hypothesis yet; preserve the baseline
-    ambiguity so its necessity can be evaluated separately.
+    Do not implement the mission-clarification/grill-me hypothesis yet; preserve mission ambiguity
+    so the proof can distinguish organization failures from intake/mission-definition failures.
 
 explicitly_open:
   - whether mission clarification must become a pre-organization contract/skill
@@ -184,8 +169,9 @@ explicitly_open:
   - dynamic organization and closure mechanics in WP5
 
 non_goals_now:
-  - promote WP1 hypotheses into accepted foundation rules before proof
-  - implement the grill-me/intake hypothesis before an independent baseline/proof clarifies necessity
+  - treat manual issue #40 as proof or accepted organization design
+  - promote WP1 hypotheses into accepted foundation rules before Modelrail proof
+  - implement the grill-me/intake hypothesis before the proof clarifies necessity
   - hard-code a universal organization chart, role library, hierarchy depth, or headcount
   - copy Forge, OpenCode Swarm, Sol Advisor, or other external taxonomies into Mandate Core
   - use wall-clock duration, token quotas, or arbitrary iteration counts as quality criteria
