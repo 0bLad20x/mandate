@@ -1,7 +1,7 @@
 protocol:
   id: mandate.coordination
   version: "0.1"
-  status: provisional_foundation
+  status: accepted_foundation
 
 purpose: >-
   Define the smallest stable semantic rules for recursively delegated LLM work.
