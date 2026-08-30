@@ -8,7 +8,7 @@ organization projection; older snapshots remain evidence/history.
 from __future__ import annotations
 
 import json
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 
 from mandate.persistence import Persistence, StreamRef
 
@@ -47,6 +47,8 @@ def _responsibility_dict(value: Responsibility) -> dict[str, object]:
 
 def encode_snapshot(value: OrganizationSnapshot) -> str:
     validate_organization(value.organization, require_single_root=True)
+    if not isinstance(value.reason, str) or not value.reason.strip():
+        raise ValueError("ORGANIZATION_SNAPSHOT_REASON_REQUIRED")
     return json.dumps(
         {
             "protocol": PROTOCOL,
@@ -90,6 +92,11 @@ def _decode_responsibility(raw: object) -> Responsibility:
         "run_control",
     }:
         raise ValueError("RESPONSIBILITY_AUTHORITY_SHAPE_INVALID")
+    if not all(
+        isinstance(authority_raw[key], bool)
+        for key in ("delegate", "accept_child_results", "run_control")
+    ):
+        raise ValueError("RESPONSIBILITY_AUTHORITY_BOOLEAN_REQUIRED")
     prohibited = raw["prohibited_scope"]
     conduct = raw["conduct_refs"]
     if not isinstance(prohibited, list) or not isinstance(conduct, list):
@@ -105,9 +112,9 @@ def _decode_responsibility(raw: object) -> Responsibility:
             else str(raw["parent_responsibility_id"])
         ),
         authority=Authority(
-            delegate=bool(authority_raw["delegate"]),
-            accept_child_results=bool(authority_raw["accept_child_results"]),
-            run_control=bool(authority_raw["run_control"]),
+            delegate=authority_raw["delegate"],
+            accept_child_results=authority_raw["accept_child_results"],
+            run_control=authority_raw["run_control"],
         ),
         mandate=str(raw["mandate"]),
         prohibited_scope=tuple(str(item) for item in prohibited),
@@ -140,6 +147,10 @@ def decode_snapshot(body: str) -> OrganizationSnapshot | None:
     values = raw["responsibilities"]
     if not isinstance(values, list):
         raise ValueError("ORGANIZATION_RESPONSIBILITIES_INVALID")
+    if not isinstance(raw["reason"], str) or not raw["reason"].strip():
+        raise ValueError("ORGANIZATION_SNAPSHOT_REASON_REQUIRED")
+    if raw["source_ref"] is not None and not isinstance(raw["source_ref"], str):
+        raise ValueError("ORGANIZATION_SNAPSHOT_SOURCE_REF_INVALID")
     organization = Organization(
         run_id=str(raw["run_id"]),
         responsibilities=tuple(_decode_responsibility(item) for item in values),
@@ -147,8 +158,8 @@ def decode_snapshot(body: str) -> OrganizationSnapshot | None:
     validate_organization(organization, require_single_root=True)
     return OrganizationSnapshot(
         organization=organization,
-        reason=str(raw["reason"]),
-        source_ref=None if raw["source_ref"] is None else str(raw["source_ref"]),
+        reason=raw["reason"],
+        source_ref=raw["source_ref"],
     )
 
 
