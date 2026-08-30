@@ -1,0 +1,79 @@
+foundation_transition:
+  status: LIVE_VALIDATION_PENDING
+  tracking_issue: 121
+  branch: agent/package-foundation-modelrail-boundary
+
+purpose: >-
+  Manifest the strongest recovered Mandate semantics as an installable package in the
+  Mandate repository while preserving the existing WP1-WP5 evidence and keeping
+  Modelrail an external execution dependency.
+
+preserved_authority:
+  - PROJECT_STATE.yaml remains the accepted historical/evidence ledger until this branch
+    passes its focused live validation and a later Decision Gate explicitly updates it.
+  - governance/protocol.yaml and contracts/*.yaml remain preserved evidence/contracts;
+    this transition does not silently delete or retroactively rewrite them.
+  - WP1 accepted organization evidence and pending WP2-WP5 work remain visible and are
+    not considered completed, rejected, or superseded by package creation alone.
+
+package_boundary:
+  mandate_owns:
+    - accountable Work / Result / Decision semantics
+    - Bootstrap semantic coordination
+    - durable coordination Persistence boundary
+  modelrail_owns:
+    - referenced Turn execution
+    - provider and browser mechanics
+    - Modelrail conversation execution state
+  dependency_direction: mandate -> modelrail
+  forbidden_direction: modelrail -> mandate
+
+promoted_slice:
+  accountable_work:
+    values: [Work, Result, Decision]
+    decisions: [ACCEPT, CONTINUE]
+    invariants:
+      - no self-acceptance
+      - Result actor is Work assignee
+      - Decision actor is Work issuer
+      - CONTINUE leaves the same Work open
+      - OPEN/CLOSED are derived projections, not persisted states
+  persistence:
+    operations: [create_stream, resolve_stream, metadata, append, read]
+    first_adapter: GitHub
+    rule: GitHub representation is backend mechanics, not semantic architecture
+  bootstrap:
+    semantic_reference: V9
+    rule: Bootstrap is ordinary accountable Work
+    external_input_semantics: >-
+      A CONTINUE judgment may carry a concrete BOOTSTRAP_REQUEST when authoritative
+      outside information or approval is required. This is part of Decision.judgment,
+      not a second Decision value, status, phase, HITL record, or run-control action.
+    resume_rule: >-
+      resume(run_id) reconstructs Mandate coordination state from Persistence. Human input
+      must already exist in Persistence; resume has no alternate local/file/body input channel.
+
+not_promoted_yet:
+  - persisted Responsibility/Organization contract
+  - SIGNAL contract/runtime behavior
+  - PAUSE/TERMINATE or generic Run-Control
+  - dynamic reorganization
+  - audit/review workflow type
+  - universal scheduler/reducer
+  - same-run multi-writer concurrency semantics
+  - authenticated Human/actor provenance for arbitrary persistence writers
+
+validation_gate:
+  deterministic:
+    - accountable Work package self-test
+    - one-truth Bootstrap resume vertical
+  live:
+    - start Bootstrap from this repository
+    - persist Human clarification directly in the GitHub run stream
+    - resume by run_id only
+    - verify same Work and same BOOTSTRAP/RUN-AUTHORITY Modelrail conversations continue
+    - reach the final Bootstrap Human organization-review boundary without substantive mission execution
+  after_live_only:
+    - update PROJECT_STATE.yaml
+    - classify old responsibility/task/result/handoff contracts as retained, superseded, or still experimental
+    - clean Mandate-specific package/tests from llm-browser-modelrail
