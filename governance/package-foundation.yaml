@@ -1,25 +1,32 @@
 foundation_transition:
-  status: LIVE_VALIDATION_PENDING
-  tracking_issue: 121
-  branch: agent/package-foundation-modelrail-boundary
+  status: SEMANTIC_MIGRATION_REJECTED_PENDING_FIDELITY_RESTORE
+  tracking_issue: 125
+  branch: agent/restore-modelrail-mandate-fidelity
 
 purpose: >-
-  Manifest the strongest recovered Mandate semantics as an installable package in the
-  Mandate repository while preserving the existing WP1-WP5 evidence and keeping
-  Modelrail an external execution dependency.
+  Move Mandate into an installable package in the Mandate repository without changing
+  the already accepted Mandate semantics established by PROJECT_STATE.yaml and the
+  Modelrail-era WP1/V9 evidence. Repository/package ownership may change; semantic
+  behavior may not be silently weakened, narrowed, or replaced.
 
 preserved_authority:
-  - PROJECT_STATE.yaml remains the accepted historical/evidence ledger until this branch
-    passes its focused live validation and a later Decision Gate explicitly updates it.
-  - governance/protocol.yaml and contracts/*.yaml remain preserved evidence/contracts;
-    this transition does not silently delete or retroactively rewrite them.
-  - WP1 accepted organization evidence and pending WP2-WP5 work remain visible and are
-    not considered completed, rejected, or superseded by package creation alone.
+  - PROJECT_STATE.yaml remains the accepted semantic/evidence ledger until an explicit
+    evidence-backed Decision Gate supersedes a statement.
+  - governance/protocol.yaml and contracts/*.yaml remain active migration inputs, not
+    archival decoration.
+  - Accepted WP1 organization-before-execution, authority/execution separation,
+    mission relevance, recursive organization design, independent challenge, and
+    decision-delta clarification remain governing behavior.
+  - V9 authority/intent/ownership falsification remains a quality reference, but it may
+    not erase accepted WP1 organization semantics.
 
 package_boundary:
   mandate_owns:
     - accountable Work / Result / Decision semantics
-    - Bootstrap semantic coordination
+    - mission clarification and Human authority boundaries
+    - Responsibility / organization semantics
+    - recursive pre-execution organization
+    - independent organization challenge and reintegration
     - durable coordination Persistence boundary
   modelrail_owns:
     - referenced Turn execution
@@ -28,7 +35,7 @@ package_boundary:
   dependency_direction: mandate -> modelrail
   forbidden_direction: modelrail -> mandate
 
-promoted_slice:
+retained_core:
   accountable_work:
     values: [Work, Result, Decision]
     decisions: [ACCEPT, CONTINUE]
@@ -42,38 +49,78 @@ promoted_slice:
     operations: [create_stream, resolve_stream, metadata, append, read]
     first_adapter: GitHub
     rule: GitHub representation is backend mechanics, not semantic architecture
-  bootstrap:
-    semantic_reference: V9
-    rule: Bootstrap is ordinary accountable Work
-    external_input_semantics: >-
-      A CONTINUE judgment may carry a concrete BOOTSTRAP_REQUEST when authoritative
-      outside information or approval is required. This is part of Decision.judgment,
-      not a second Decision value, status, phase, HITL record, or run-control action.
-    resume_rule: >-
-      resume(run_id) reconstructs Mandate coordination state from Persistence. Human input
-      must already exist in Persistence; resume has no alternate local/file/body input channel.
+    one_truth: all authoritative Mandate coordination facts reconstruct from Persistence
 
-not_promoted_yet:
-  - persisted Responsibility/Organization contract
-  - SIGNAL contract/runtime behavior
-  - PAUSE/TERMINATE or generic Run-Control
-  - dynamic reorganization
-  - audit/review workflow type
+fidelity_restore:
+  required_behavior:
+    - decision-delta mission clarification occurs before organization finalization when
+      materially different Human answers can change mission meaning, scope, product
+      direction, organization/domain weighting, authority boundaries, or acceptance
+    - no fixed questionnaire and no fixed clarification-round count
+    - exactly one accountable ROOT carries the whole mission below RUN-AUTHORITY
+    - ordinary substantive domain execution is blocked until an explicit initial
+      organization is persisted and independently challenged
+    - responsibility boundaries are justified by inherited mission relevance and
+      materially distinct obligation, uncertainty, risk, deliverable, evidence,
+      judgment, failure, or accountability surfaces
+    - broad non-leaf responsibilities recursively derive the child execution
+      organization actually required by their delegated domain before substantive work
+    - independent organization challenge can require revision for missing, collapsed,
+      overlapping, unsupported, authority-expanding, or execution-collapsing boundaries
+    - whole-topology reintegration checks the organization against the Human mission
+    - Human approval of the current organization is required before Bootstrap acceptance
+    - no preferred domain count, topology, symmetry, hierarchy depth, role catalogue, or
+      profession list
+    - cross-domain missions must preserve independent epistemic depth where synthesis
+      depends on materially distinct domain evidence
+    - pre-execution organization performs no substantive mission execution
+  retained_contracts:
+    - mandate.responsibility@0.3
+    - mandate.task@0.2
+    - mandate.result@0.1
+    - mandate.execution_handoff@0.1
+  historical_reference_branches:
+    - agent/mandate-wp1-mission-clarification-proof
+    - agent/mandate-wp1-full-recursive-org-proof
+    - agent/mandate-wp1-cross-domain-trading-proof
+    - agent/mandate-wp1-review-revision-proof
+    - agent/mandate-bootstrap-workcore-live-v9-quality
+
+rejected_behavior:
+  - accepting Bootstrap merely because one generic bounded later Work can linguistically
+    keep all uncertainties open
+  - treating distinct knowledge/research/evidence surfaces as mere task decomposition
+    without testing whether independent depth is necessary for the whole-mission judgment
+  - deferring Human clarification when plausible answers materially change the initial
+    organization or authority boundaries
+  - treating runs 123 or 124 as semantic golden runs
+
+not_promoted_by_this_restore_without_new_evidence:
   - universal scheduler/reducer
-  - same-run multi-writer concurrency semantics
+  - arbitrary same-run multi-writer concurrency semantics
   - authenticated Human/actor provenance for arbitrary persistence writers
+  - fixed role classes or fixed organization topology
 
 validation_gate:
   deterministic:
-    - accountable Work package self-test
-    - one-truth Bootstrap resume vertical
+    - accountable Work package self-test remains green
+    - Persistence cold-resume reconstruction remains green
+    - clarification decision-delta boundary test
+    - organization-before-execution boundary test
+    - recursive organization boundary test
+    - independent review revision test
+    - cross-domain anti-collapse test
+    - anti-fragmentation test
   live:
-    - start Bootstrap from this repository
-    - persist Human clarification directly in the GitHub run stream
-    - resume by run_id only
-    - verify same Work and same BOOTSTRAP/RUN-AUTHORITY Modelrail conversations continue
-    - reach the final Bootstrap Human organization-review boundary without substantive mission execution
+    - one underspecified mission reaches a real Human clarification boundary and resumes
+      the same clarification ownership/conversation from Persistence
+    - an explicit organization is produced and independently challenged before any
+      substantive domain execution
+    - broad authorities recursively organize where justified
+    - current organization reaches a real Human approval boundary
+    - a cross-domain creative mission demonstrates independent domain depth plus
+      accountable synthesis rather than one generic chat-like Work
   after_live_only:
-    - update PROJECT_STATE.yaml
-    - classify old responsibility/task/result/handoff contracts as retained, superseded, or still experimental
-    - clean Mandate-specific package/tests from llm-browser-modelrail
+    - update PROJECT_STATE.yaml with the migration evidence
+    - decide which implementation artifacts in Modelrail can be removed
+    - clean Mandate-specific Modelrail artifacts only after parity is demonstrated
