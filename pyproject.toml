@@ -5,7 +5,7 @@ description = "Semantic coordination contracts and Bootstrap for accountable LLM
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "llm-browser-modelrail @ git+https://github.com/0bLad20x/llm-browser-modelrail.git@b889e6d89136adbe8750caf37f30419a1b7c23fd",
+    "llm-browser-modelrail @ git+https://github.com/0bLad20x/llm-browser-modelrail.git@ce11b4bca2c8d1184f1a56a3da765222bd7b6423",
 ]
 
 [build-system]
