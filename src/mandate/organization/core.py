@@ -81,12 +81,15 @@ class Organization:
         return roots[0]
 
     def actor_authorities(self) -> Mapping[str, ActorAuthority]:
+        # Ledger reconstruction needs historical actors even after a responsibility
+        # is retired from the current organization. Status controls current
+        # organizational membership, not whether past canonical Work/Result/Decision
+        # records remain valid.
         return {
             item.responsibility_id: ActorAuthority(
                 may_issue_work=item.authority.delegate
             )
             for item in self.responsibilities
-            if item.status == "ACTIVE"
         }
 
 
