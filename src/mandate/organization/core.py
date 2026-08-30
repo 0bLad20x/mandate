@@ -203,12 +203,43 @@ def validate_organization(
                 raise OrganizationError("DELEGATING_RESPONSIBILITY_WITHOUT_CHILDREN")
 
 
+def _validate_identity_update(
+    existing: Responsibility,
+    replacement: Responsibility,
+) -> None:
+    """Keep stable responsibility identity compatible with durable Work history.
+
+    Parent ownership, kind and authority define the accountable actor identity used
+    by historical Work/Result/Decision validation. Changing one of them under the
+    same ID would reinterpret old records using new authority. Such a reorganization
+    must retire the old ID and create a new responsibility ID instead.
+    """
+
+    if existing.run_id != replacement.run_id:
+        raise OrganizationError("RESPONSIBILITY_ID_RUN_REDEFINITION")
+    if existing.kind != replacement.kind:
+        raise OrganizationError("RESPONSIBILITY_ID_KIND_REDEFINITION")
+    if existing.parent_responsibility_id != replacement.parent_responsibility_id:
+        raise OrganizationError("RESPONSIBILITY_ID_PARENT_REDEFINITION")
+    if existing.authority != replacement.authority:
+        raise OrganizationError("RESPONSIBILITY_ID_AUTHORITY_REDEFINITION")
+    if (
+        existing.conversation_id is not None
+        and replacement.conversation_id is not None
+        and existing.conversation_id != replacement.conversation_id
+    ):
+        raise OrganizationError("RESPONSIBILITY_CONVERSATION_REBIND_FORBIDDEN")
+
+
 def with_responsibilities(
     organization: Organization,
     values: Iterable[Responsibility],
 ) -> Organization:
     by_id = organization.by_id()
     for item in values:
+        existing = by_id.get(item.responsibility_id)
+        if existing is not None:
+            _validate_identity_update(existing, item)
         by_id[item.responsibility_id] = item
     candidate = Organization(
         run_id=organization.run_id,
