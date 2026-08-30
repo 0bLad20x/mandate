@@ -72,18 +72,15 @@ class OrganizationStore:
         responsibility_ids: set[str],
     ) -> None:
         current = self.current(stream)
-        changed = False
-        values: list[Responsibility] = []
-        for item in current.responsibilities:
-            if item.responsibility_id in responsibility_ids and item.status == "ACTIVE":
-                values.append(replace(item, status="RETIRED"))
-                changed = True
-            else:
-                values.append(item)
-        if not changed:
+        replacements = tuple(
+            replace(item, status="RETIRED")
+            for item in current.responsibilities
+            if item.responsibility_id in responsibility_ids
+            and item.status == "ACTIVE"
+        )
+        if not replacements:
             return
-        candidate = Organization(current.run_id, tuple(values))
-        validate_organization(candidate, require_single_root=True)
+        candidate = with_responsibilities(current, replacements)
         self.append(
             stream,
             candidate,
@@ -113,18 +110,23 @@ class OrganizationStore:
         values = tuple(values)
         candidate_ids = {item.responsibility_id for item in values}
         current = self.current(stream)
-        retained: list[Responsibility] = []
-        for item in current.responsibilities:
-            if item.responsibility_id in RESERVED_RESPONSIBILITY_IDS:
-                retained.append(item)
-            elif item.responsibility_id in candidate_ids:
-                continue
-            else:
-                retained.append(replace(item, status="RETIRED"))
-        candidate = Organization(
-            run_id=current.run_id,
-            responsibilities=tuple(retained) + values,
+
+        # Retire every old execution responsibility not present in the new broad
+        # candidate. Existing IDs that are retained remain in the base so
+        # with_responsibilities can enforce stable parent/kind/authority identity.
+        retirements = tuple(
+            replace(item, status="RETIRED")
+            for item in current.responsibilities
+            if item.responsibility_id not in RESERVED_RESPONSIBILITY_IDS
+            and item.responsibility_id not in candidate_ids
+            and item.status == "ACTIVE"
         )
+        base = (
+            with_responsibilities(current, retirements)
+            if retirements
+            else current
+        )
+        candidate = with_responsibilities(base, values)
         validate_organization(candidate, require_single_root=True)
         self.append(
             stream,
