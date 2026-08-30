@@ -1,0 +1,1 @@
+"""Mandate semantic coordination package."""
