@@ -1,5 +1,5 @@
 repo_map:
-  version: "0.1"
+  version: "0.2"
   purpose: >-
     Stable catalog for exact GitHub retrieval. Known resources should be fetched directly;
     repository search is reserved for genuine discovery.
@@ -8,6 +8,10 @@ resources:
   state.project:
     path: PROJECT_STATE.yaml
     kind: current_state
+
+  state.package_foundation:
+    path: governance/package-foundation.yaml
+    kind: transition_state
 
   protocol.core:
     path: governance/protocol.yaml
