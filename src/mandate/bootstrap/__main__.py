@@ -43,7 +43,11 @@ def _print(value) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Mandate Bootstrap")
-    parser.add_argument("--repository", default="0bLad20x/llm-browser-modelrail")
+    parser.add_argument(
+        "--repository",
+        required=True,
+        help="Explicit owner/repository used by the configured Persistence adapter.",
+    )
     parser.add_argument("--env-file", type=Path, default=Path(".env"))
     parser.add_argument(
         "--modelrail-root",
