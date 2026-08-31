@@ -15,6 +15,9 @@ The architecture follows one rule:
 
 > One system question has one owner and one durable truth.
 
+Cross-repository dependency and update rules are defined in
+[Repository Integration Contract](REPOSITORY_INTEGRATION_CONTRACT.md).
+
 ## Public boundaries
 
 ```text
@@ -37,12 +40,15 @@ own or import Mandate coordination semantics.
 The verified Modelrail integration commit
 `01c09f794c15d9680dff523891cbb6a0a6a7933c` packages only `src/modelrail` while
 preserving the frozen Mandate source snapshot in the Modelrail repository for rollback
-and live-verification evidence. Mandate declares that exact commit as its external
-runtime dependency. `uv.lock` is required and must resolve the same commit before a live
-Bootstrap test is accepted. This makes the runtime composition reproducible without
-`PYTHONPATH`, editable cross-repository source paths, or an implicit dependency on
-Modelrail `main`. The Modelrail packaging PR remains separate and unmerged until the
-standalone Mandate live test is accepted.
+and migration evidence. Mandate declares that exact commit as its external runtime
+dependency. `uv.lock` resolves the same commit. This makes the runtime composition
+reproducible without `PYTHONPATH`, editable cross-repository source paths, or an implicit
+dependency on Modelrail `main`.
+
+The standalone live proof `MANDATE-LIVE-20260831-1244` executed this exact composition
+through ChatGPT and ended in a persisted `ACCEPT` Decision. The provider repository may
+therefore advance its own packaging branch separately; Mandate's accepted dependency
+identity is the immutable tested commit, not a branch name.
 
 ## 0. Composition root
 
@@ -201,9 +207,9 @@ reinterpret it.
 
 The standalone Mandate package does not hide this dependency through environment-specific
 source paths. Its project metadata pins the verified Modelrail packaging-boundary commit,
-and the committed `uv.lock` must preserve that same resolved commit. Runtime integration
-acceptance additionally verifies installed PEP 610 provenance and confirms that the
-installed Modelrail distribution exports `modelrail` but not `mandate`.
+and the committed `uv.lock` preserves that same resolved commit. Runtime integration
+acceptance verifies installed PEP 610 provenance and confirms that the installed Modelrail
+distribution exports `modelrail` but not `mandate`.
 
 ## 5. Reconstruction
 
