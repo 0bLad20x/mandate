@@ -34,12 +34,15 @@ The standalone `mandate` distribution packages only `src/mandate`. Modelrail is 
 external execution dependency at the Bootstrap integration boundary; Modelrail does not
 own or import Mandate coordination semantics.
 
-The current frozen Modelrail distribution still packages both `src/modelrail` and
-`src/mandate`. Therefore Mandate does not yet declare Modelrail as an installable runtime
-dependency: doing so would install a second Mandate package and violate the standalone
-package boundary. A reproducible live Bootstrap composition is blocked until Modelrail's
-packaging boundary exports only `src/modelrail`. Local `PYTHONPATH` or ad-hoc source-path
-composition is not an architectural substitute for that package boundary.
+The verified Modelrail integration commit
+`01c09f794c15d9680dff523891cbb6a0a6a7933c` packages only `src/modelrail` while
+preserving the frozen Mandate source snapshot in the Modelrail repository for rollback
+and live-verification evidence. Mandate declares that exact commit as its external
+runtime dependency. `uv.lock` is required and must resolve the same commit before a live
+Bootstrap test is accepted. This makes the runtime composition reproducible without
+`PYTHONPATH`, editable cross-repository source paths, or an implicit dependency on
+Modelrail `main`. The Modelrail packaging PR remains separate and unmerged until the
+standalone Mandate live test is accepted.
 
 ## 0. Composition root
 
@@ -197,8 +200,10 @@ execution state to be reachable by that Modelrail deployment; Mandate does not c
 reinterpret it.
 
 The standalone Mandate package does not hide this dependency through environment-specific
-source paths. Once Modelrail's own distribution boundary is clean, Mandate can declare and
-lock the external runtime dependency reproducibly before a live Bootstrap acceptance test.
+source paths. Its project metadata pins the verified Modelrail packaging-boundary commit,
+and the committed `uv.lock` must preserve that same resolved commit. Runtime integration
+acceptance additionally verifies installed PEP 610 provenance and confirms that the
+installed Modelrail distribution exports `modelrail` but not `mandate`.
 
 ## 5. Reconstruction
 
