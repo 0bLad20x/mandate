@@ -71,12 +71,14 @@ def self_test() -> None:
 
     assert package["project"]["name"] == "mandate"
     assert package["project"]["dependencies"] == [MODELRAIL_RUNTIME]
+    assert package["tool"]["hatch"]["metadata"]["allow-direct-references"] is True
     assert package["tool"]["hatch"]["build"]["targets"]["wheel"]["packages"] == [
         "src/mandate"
     ]
     assert not (ROOT / "src" / "modelrail").exists()
     print("MANDATE_STANDALONE_PACKAGE_BOUNDARY_OK")
     print("MANDATE_MODELRAIL_RUNTIME_PIN_EXPLICIT_OK")
+    print("MANDATE_DIRECT_RUNTIME_REFERENCE_ALLOWED_OK")
 
     # The Accountable Work core remains semantically independent even though the
     # complete distribution declares the runtime needed by Bootstrap composition.
