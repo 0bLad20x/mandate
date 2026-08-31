@@ -17,6 +17,11 @@ from mandate.persistence import GitHubPersistence, Persistence
 
 ROOT = Path(__file__).resolve().parents[2]
 MANDATE_SRC = ROOT / "src" / "mandate"
+MODELRAIL_RUNTIME = (
+    "llm-browser-modelrail @ "
+    "git+https://github.com/0bLad20x/llm-browser-modelrail.git@"
+    "01c09f794c15d9680dff523891cbb6a0a6a7933c"
+)
 
 
 def _modelrail_importers() -> list[str]:
@@ -65,14 +70,16 @@ def self_test() -> None:
         package = tomllib.load(handle)
 
     assert package["project"]["name"] == "mandate"
-    assert package["project"]["dependencies"] == []
+    assert package["project"]["dependencies"] == [MODELRAIL_RUNTIME]
     assert package["tool"]["hatch"]["build"]["targets"]["wheel"]["packages"] == [
         "src/mandate"
     ]
     assert not (ROOT / "src" / "modelrail").exists()
     print("MANDATE_STANDALONE_PACKAGE_BOUNDARY_OK")
+    print("MANDATE_MODELRAIL_RUNTIME_PIN_EXPLICIT_OK")
 
-    # The Accountable Work core must remain executable without importing Modelrail.
+    # The Accountable Work core remains semantically independent even though the
+    # complete distribution declares the runtime needed by Bootstrap composition.
     actors = {
         "ROOT": ActorAuthority(may_issue_work=True),
         "WORKER": ActorAuthority(may_issue_work=False),
@@ -88,7 +95,7 @@ def self_test() -> None:
         actors,
     )
     assert projection.open_work_refs() == {"W-COMPOSITION"}
-    print("MANDATE_WORK_CORE_WITHOUT_MODELRAIL_OK")
+    print("MANDATE_WORK_CORE_WITHOUT_MODELRAIL_SEMANTICS_OK")
 
     importers = _modelrail_importers()
     assert importers
