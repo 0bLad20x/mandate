@@ -3,7 +3,9 @@ name = "mandate"
 version = "0.1.0"
 description = "Semantic coordination for accountable work and bootstrap"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "llm-browser-modelrail @ git+https://github.com/0bLad20x/llm-browser-modelrail.git@01c09f794c15d9680dff523891cbb6a0a6a7933c",
+]
 
 [build-system]
 requires = ["hatchling>=1.27"]
