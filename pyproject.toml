@@ -1,16 +1,13 @@
 [project]
-name = "llm-browser-modelrail"
+name = "mandate"
 version = "0.1.0"
-description = "Browser-backed runtime for referenced Turns in durable LLM Conversations"
-readme = "README.md"
+description = "Semantic coordination for accountable work and bootstrap"
 requires-python = ">=3.12"
-dependencies = [
-    "playwright>=1.60",
-]
+dependencies = []
 
 [build-system]
 requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/modelrail", "src/mandate"]
+packages = ["src/mandate"]
