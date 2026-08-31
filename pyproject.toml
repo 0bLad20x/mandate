@@ -11,5 +11,10 @@ dependencies = [
 requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
+# The Modelrail runtime is intentionally pinned as a direct VCS dependency so the
+# integration provenance is part of Mandate's package metadata, not local shell state.
+[tool.hatch.metadata]
+allow-direct-references = true
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/mandate"]
