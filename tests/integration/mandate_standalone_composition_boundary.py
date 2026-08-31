@@ -111,6 +111,17 @@ def self_test() -> None:
     assert _repository_argument_is_explicit()
     print("MANDATE_PERSISTENCE_DESTINATION_EXPLICIT_OK")
 
+    gitignore = {
+        line.strip()
+        for line in (ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    }
+    env_example = (ROOT / ".env.example").read_text(encoding="utf-8")
+    assert ".env" in gitignore
+    assert "GITHUB_TOKEN=" in env_example
+    assert "MODELRAIL_BROWSER_PROFILE_DIR" in env_example
+    print("MANDATE_LOCAL_SECRET_CONFIGURATION_BOUNDARY_OK")
+
     assert getattr(Persistence, "_is_protocol", False) is True
     for operation in ("create_stream", "resolve_stream", "metadata", "append", "read"):
         assert hasattr(Persistence, operation)
