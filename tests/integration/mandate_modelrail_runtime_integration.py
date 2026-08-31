@@ -18,11 +18,13 @@ MODELRAIL_REPOSITORY = "github.com/0bLad20x/llm-browser-modelrail"
 def self_test() -> None:
     mandate_path = Path(mandate.__file__).resolve()
     modelrail_path = Path(modelrail.__file__).resolve()
+    source_root = (ROOT / "src").resolve()
 
-    assert mandate_path.is_relative_to((ROOT / "src" / "mandate").resolve()), mandate_path
-    assert not modelrail_path.is_relative_to(ROOT.resolve()), modelrail_path
+    assert mandate_path.is_relative_to((source_root / "mandate").resolve()), mandate_path
+    assert not (source_root / "modelrail").exists()
+    assert not modelrail_path.is_relative_to(source_root), modelrail_path
     print("MANDATE_IMPORT_OWNED_BY_STANDALONE_REPOSITORY_OK")
-    print("MODELRAIL_IMPORT_EXTERNAL_TO_MANDATE_REPOSITORY_OK")
+    print("MODELRAIL_IMPORT_NOT_FROM_MANDATE_SOURCE_TREE_OK")
 
     lock_path = ROOT / "uv.lock"
     assert lock_path.is_file(), "UV_LOCK_REQUIRED_FOR_REPRODUCIBLE_RUNTIME"
