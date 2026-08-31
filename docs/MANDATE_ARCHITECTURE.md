@@ -18,7 +18,7 @@ The architecture follows one rule:
 ## Public boundaries
 
 ```text
-Application
+Application / composition root
    |
    v
 BootstrapAPI
@@ -30,9 +30,37 @@ BootstrapAPI
    +--> Modelrail TurnAPI -----> provider/runtime mechanics
 ```
 
-The current Python distribution contains both `modelrail` and `mandate` namespaces,
-but their ownership boundaries remain one-way: Mandate consumes Modelrail's public
-Turn surface; Modelrail does not import Mandate coordination semantics.
+The standalone `mandate` distribution packages only `src/mandate`. Modelrail is an
+external execution dependency at the Bootstrap integration boundary; Modelrail does not
+own or import Mandate coordination semantics.
+
+The current frozen Modelrail distribution still packages both `src/modelrail` and
+`src/mandate`. Therefore Mandate does not yet declare Modelrail as an installable runtime
+dependency: doing so would install a second Mandate package and violate the standalone
+package boundary. A reproducible live Bootstrap composition is blocked until Modelrail's
+packaging boundary exports only `src/modelrail`. Local `PYTHONPATH` or ad-hoc source-path
+composition is not an architectural substitute for that package boundary.
+
+## 0. Composition root
+
+Owner question:
+
+> Which concrete infrastructure adapters and execution runtime are selected for one Mandate process?
+
+The Bootstrap CLI is the current composition root. It wires:
+
+```text
+GitHubPersistence(repository, token)
+TurnAPI(modelrail_root)
+BootstrapAPI(persistence, turn_api)
+```
+
+Composition configuration is deployment input, not semantic truth. In particular, the
+Persistence repository is required explicitly; Mandate has no hidden default that points
+to the Modelrail repository or any other coordination stream destination.
+
+The composition root may select a different Persistence adapter or execution runtime in
+the future without changing Accountable Work semantics.
 
 ## 1. Accountable Work
 
@@ -83,9 +111,12 @@ read(stream) -> ordered PersistedEntry[]
 Persistence does not interpret Work, Result, Decision, Bootstrap, Human input, or
 provider mechanics.
 
-`GitHubPersistence` is the current adapter. GitHub Issue/Comment shape is private
-backend mechanics. A SQL, MongoDB, JSONL, or other implementation may replace it by
-implementing the same boundary without changing semantic packages.
+`GitHubPersistence` is the current adapter behind the Mandate-owned `Persistence` port.
+Its GitHub Issue/Comment shape is private backend mechanics. A SQL, MongoDB, JSONL, or
+other implementation may replace it by implementing the same boundary without changing
+semantic packages. The adapter remains inside Mandate because it implements Mandate's
+persistence boundary; the use of GitHub technology alone does not create an independent
+system ownership boundary.
 
 Mission, provider, authoritative Human input, Work records, and Bootstrap execution
 references required to reconstruct Mandate coordination flow through this same
@@ -147,7 +178,7 @@ Owner question:
 
 > How is one referenced LLM Turn executed and continued across provider mechanics?
 
-Mandate uses only:
+Mandate consumes only Modelrail's public Turn boundary:
 
 ```text
 TurnRequest
@@ -158,12 +189,16 @@ TurnAPI
 
 Provider, browser, extraction, lifecycle, and Conversation progression stay inside
 Modelrail. Mandate persists the relevant Conversation/Turn references needed to address
-its two semantic perspectives without importing Modelrail internals.
+its two semantic perspectives without importing Modelrail provider internals.
 
 Modelrail Conversation State is execution-substrate state, not a duplicate of Mandate
 coordination truth. Moving Modelrail execution across machines requires the Modelrail
 execution state to be reachable by that Modelrail deployment; Mandate does not copy or
 reinterpret it.
+
+The standalone Mandate package does not hide this dependency through environment-specific
+source paths. Once Modelrail's own distribution boundary is clean, Mandate can declare and
+lock the external runtime dependency reproducibly before a live Bootstrap acceptance test.
 
 ## 5. Reconstruction
 
@@ -222,6 +257,8 @@ src/mandate/
 └── __init__.py
 ```
 
+The wheel target is exactly `src/mandate`. Modelrail is not packaged inside Mandate.
+
 ## 8. Explicit non-goals of this foundation
 
 Not introduced here:
@@ -234,6 +271,8 @@ Not introduced here:
 - provider allocator;
 - generic audit subsystem;
 - duplicated persisted OPEN/CLOSED/phase/status state;
-- GitHub-shaped semantic records.
+- GitHub-shaped semantic records;
+- hidden defaults that select another repository as Mandate's persistence destination;
+- environment-specific `PYTHONPATH` composition as a substitute for declared package dependencies.
 
 Those require their own semantic ownership evidence before a package boundary is added.
