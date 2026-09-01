@@ -20,7 +20,7 @@ MANDATE_SRC = ROOT / "src" / "mandate"
 MODELRAIL_RUNTIME = (
     "llm-browser-modelrail @ "
     "git+https://github.com/0bLad20x/llm-browser-modelrail.git@"
-    "01c09f794c15d9680dff523891cbb6a0a6a7933c"
+    "9452d6b51b179fb0f5d0a3d34b0ddd740dc71c72"
 )
 
 
