@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Semantic coordination for accountable work and bootstrap"
 requires-python = ">=3.12"
 dependencies = [
-    "llm-browser-modelrail @ git+https://github.com/0bLad20x/llm-browser-modelrail.git@01c09f794c15d9680dff523891cbb6a0a6a7933c",
+    "llm-browser-modelrail @ git+https://github.com/0bLad20x/llm-browser-modelrail.git@9452d6b51b179fb0f5d0a3d34b0ddd740dc71c72",
 ]
 
 [build-system]
