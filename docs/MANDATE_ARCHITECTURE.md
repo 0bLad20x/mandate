@@ -37,18 +37,21 @@ The standalone `mandate` distribution packages only `src/mandate`. Modelrail is 
 external execution dependency at the Bootstrap integration boundary; Modelrail does not
 own or import Mandate coordination semantics.
 
-The verified Modelrail integration commit
-`01c09f794c15d9680dff523891cbb6a0a6a7933c` packages only `src/modelrail` while
-preserving the frozen Mandate source snapshot in the Modelrail repository for rollback
-and migration evidence. Mandate declares that exact commit as its external runtime
-dependency. `uv.lock` resolves the same commit. This makes the runtime composition
-reproducible without `PYTHONPATH`, editable cross-repository source paths, or an implicit
-dependency on Modelrail `main`.
+The final verified Modelrail split commit
+`9452d6b51b179fb0f5d0a3d34b0ddd740dc71c72` packages only `src/modelrail` and no
+longer contains the migrated Mandate source, application layer, Mandate documents,
+fixtures, or Mandate integration tests. Mandate declares that exact commit as its
+external runtime dependency. `uv.lock` resolves the same commit. This makes the runtime
+composition reproducible without `PYTHONPATH`, editable cross-repository source paths,
+or an implicit dependency on Modelrail `main`.
 
-The standalone live proof `MANDATE-LIVE-20260831-1244` executed this exact composition
-through ChatGPT and ended in a persisted `ACCEPT` Decision. The provider repository may
-therefore advance its own packaging branch separately; Mandate's accepted dependency
-identity is the immutable tested commit, not a branch name.
+The standalone live proof `MANDATE-LIVE-20260831-1244` executed the public boundary
+through ChatGPT against the verified predecessor commit
+`01c09f794c15d9680dff523891cbb6a0a6a7933c` and ended in a persisted `ACCEPT`
+Decision. The subsequent Modelrail cleanup to `9452d6b51b179fb0f5d0a3d34b0ddd740dc71c72`
+changed no `src/modelrail/**` runtime code; Modelrail repository-boundary and Turn gates
+remained green. Mandate therefore advances its immutable dependency identity to the
+cleaned commit without changing the accepted public Turn contract.
 
 ## 0. Composition root
 
@@ -206,8 +209,8 @@ execution state to be reachable by that Modelrail deployment; Mandate does not c
 reinterpret it.
 
 The standalone Mandate package does not hide this dependency through environment-specific
-source paths. Its project metadata pins the verified Modelrail packaging-boundary commit,
-and the committed `uv.lock` preserves that same resolved commit. Runtime integration
+source paths. Its project metadata pins the verified final Modelrail cleanup commit, and
+the committed `uv.lock` preserves that same resolved commit. Runtime integration
 acceptance verifies installed PEP 610 provenance and confirms that the installed Modelrail
 distribution exports `modelrail` but not `mandate`.
 
