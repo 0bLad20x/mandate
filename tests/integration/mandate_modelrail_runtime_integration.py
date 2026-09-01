@@ -11,7 +11,7 @@ import modelrail
 
 
 ROOT = Path(__file__).resolve().parents[2]
-MODELRAIL_COMMIT = "01c09f794c15d9680dff523891cbb6a0a6a7933c"
+MODELRAIL_COMMIT = "9452d6b51b179fb0f5d0a3d34b0ddd740dc71c72"
 MODELRAIL_REPOSITORY = "github.com/0bLad20x/llm-browser-modelrail"
 
 
