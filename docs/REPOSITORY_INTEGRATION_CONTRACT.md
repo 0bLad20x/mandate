@@ -158,6 +158,8 @@ Modelrail TurnAPI
 provider/browser runtime
 ```
 
-Mandate pins verified Modelrail commit `01c09f794c15d9680dff523891cbb6a0a6a7933c`. The integration proof verifies the lockfile, installed VCS provenance and that the Modelrail distribution contains `modelrail/` but not `mandate/`.
+Mandate pins final cleaned Modelrail commit `9452d6b51b179fb0f5d0a3d34b0ddd740dc71c72`. The integration proof verifies the lockfile, installed VCS provenance and that the Modelrail distribution contains `modelrail/` but not `mandate/`.
 
-The live proof `MANDATE-LIVE-20260831-1244` completed through ChatGPT and persisted the final Mandate Decision in the Mandate repository. This is the acceptance pattern future cross-repository integrations should emulate where equivalent live behavior exists.
+The live proof `MANDATE-LIVE-20260831-1244` completed through ChatGPT against predecessor commit `01c09f794c15d9680dff523891cbb6a0a6a7933c` and persisted the final Mandate Decision in the Mandate repository. The subsequent cleanup commit `9452d6b51b179fb0f5d0a3d34b0ddd740dc71c72` removed only migrated Mandate-owned/legacy repository surfaces and did not change `src/modelrail/**`; Modelrail repository-boundary and Turn gates remained green. Therefore the cleaned commit is the final dependency identity while the earlier live run remains valid behavioral evidence for the unchanged public Turn boundary.
+
+This is the acceptance pattern future cross-repository integrations should emulate where equivalent live behavior exists.
