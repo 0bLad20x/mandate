@@ -72,7 +72,7 @@ wheels = [
 [[package]]
 name = "llm-browser-modelrail"
 version = "0.1.0"
-source = { git = "https://github.com/0bLad20x/llm-browser-modelrail.git?rev=01c09f794c15d9680dff523891cbb6a0a6a7933c#01c09f794c15d9680dff523891cbb6a0a6a7933c" }
+source = { git = "https://github.com/0bLad20x/llm-browser-modelrail.git?rev=9452d6b51b179fb0f5d0a3d34b0ddd740dc71c72#9452d6b51b179fb0f5d0a3d34b0ddd740dc71c72" }
 dependencies = [
     { name = "playwright" },
 ]
@@ -86,7 +86,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "llm-browser-modelrail", git = "https://github.com/0bLad20x/llm-browser-modelrail.git?rev=01c09f794c15d9680dff523891cbb6a0a6a7933c" }]
+requires-dist = [{ name = "llm-browser-modelrail", git = "https://github.com/0bLad20x/llm-browser-modelrail.git?rev=9452d6b51b179fb0f5d0a3d34b0ddd740dc71c72" }]
 
 [[package]]
 name = "playwright"
